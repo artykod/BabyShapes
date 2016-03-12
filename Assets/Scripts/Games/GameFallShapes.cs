@@ -75,9 +75,10 @@ public class GameFallShapes : GameBase {
 
 	private Shape mainShape = null;
 	private LinkedList<FallShape> shapes = new LinkedList<FallShape>();
-	private float newShapeDelay = 0f;
+	private float newShapeDelay = DROP_SHAPE_PERIOD;
 	private int successClicks = 0;
 	private Rect worldFieldRect;
+	private int hackComputeWorldRectSizeCounter = 4;
 
 	protected override void GameLoad() {
 		RefreshFieldWorldRect();
@@ -102,6 +103,11 @@ public class GameFallShapes : GameBase {
 	}
 
 	protected override void GameUpdate() {
+		if (hackComputeWorldRectSizeCounter > 0) {
+			RefreshFieldWorldRect();
+			hackComputeWorldRectSizeCounter--;
+		}
+
 		newShapeDelay -= Time.deltaTime;
 		if (newShapeDelay < 0f) {
 			newShapeDelay = DROP_SHAPE_PERIOD;

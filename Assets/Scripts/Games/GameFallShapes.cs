@@ -11,11 +11,6 @@ public class GameFallShapes : GameBase {
 	private class FallShape {
 		public event System.Action<FallShape> OnSuccessClick = delegate { };
 
-		private const float SIDE_LEFT = -8.5f;
-		private const float SIDE_RIGHT = 4f;
-		private const float SIDE_TOP = 8.5f;
-		private const float SIDE_BOTTOM = -8.5f;
-
 		private GameFallShapes game = null;
 		private Shape shape = null;
 		private Vector3 velocity = Vector3.zero;
@@ -27,7 +22,7 @@ public class GameFallShapes : GameBase {
 			shape = Random.value > 0.5f ? game.GenerateRandomShape(gameTransform) : game.GenerateSameShape(game.mainShape, gameTransform);
 			velocity = new Vector3(Random.Range(-3f, 3f), -2.5f);
 
-			shape.transform.position = new Vector3(0f, SIDE_TOP);
+			shape.transform.position = new Vector3(Random.Range(game.worldFieldRect.xMin, game.worldFieldRect.xMax), game.worldFieldRect.yMax + 2f);
 
 			shape.OnClick += OnShapeClick;
 
@@ -39,17 +34,17 @@ public class GameFallShapes : GameBase {
 		public bool UpdateFrame() {
 			Vector3 pos = shape.transform.position;
 			pos += velocity * Time.deltaTime;
-			if (pos.x < SIDE_LEFT) {
-				pos.x = SIDE_LEFT;
+			if (pos.x < game.worldFieldRect.xMin + 1f) {
+				pos.x = game.worldFieldRect.xMin + 1f;
 				velocity.x = -velocity.x;
 			}
-			if (pos.x > SIDE_RIGHT) {
-				pos.x = SIDE_RIGHT;
+			if (pos.x > game.worldFieldRect.xMax - 1f) {
+				pos.x = game.worldFieldRect.xMax - 1f;
 				velocity.x = -velocity.x;
 			}
 			shape.transform.position = pos;
 
-			return pos.y < SIDE_BOTTOM;
+			return pos.y < game.worldFieldRect.yMin - 2f;
 		}
 
 		public void Destroy() {
@@ -75,17 +70,32 @@ public class GameFallShapes : GameBase {
 
 	[SerializeField]
 	private RectTransform mainShapeRoot = null;
+	[SerializeField]
+	private RectTransform fieldRect = null;
 
 	private Shape mainShape = null;
 	private LinkedList<FallShape> shapes = new LinkedList<FallShape>();
 	private float newShapeDelay = 0f;
 	private int successClicks = 0;
+	private Rect worldFieldRect;
 
 	protected override void GameLoad() {
-		
+		RefreshFieldWorldRect();
+	}
+
+	protected void RefreshFieldWorldRect() {
+		var corners = new Vector3[4];
+		fieldRect.GetWorldCorners(corners);
+		var lt = corners[0];
+		var rb = corners[2];
+		var width = Mathf.Abs(rb.x - lt.x);
+		var height = Mathf.Abs(rb.y - lt.y);
+		worldFieldRect = new Rect(fieldRect.position.x - width / 2f, fieldRect.position.y - height / 2f, width, height);
 	}
 
 	protected override void GameStart() {
+		RefreshFieldWorldRect();
+
 		mainShape = GenerateRandomShape(mainShapeRoot);
 		mainShape.CurrentVisualMode = Shape.VisualMode.ShapeInSlot;
 		mainShape.CurrentFaceAnimation = Shape.FaceAnimation.Idle;

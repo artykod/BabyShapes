@@ -22,5 +22,7 @@ public class UIButtonLanguage : UIButton {
 	protected override void OnClick() {
 		LanguageController.Instance.CurrentLanguage = language;
 		UIDialogParents.Open(false);
+
+		Resources.UnloadUnusedAssets();
 	}
 }

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 public class UIDialogParents : UIDialogBase {
-	[SerializeField]
 	private UIButtonLanguage[] languageButtons = null;
 
 	private static UIDialogParents currentDialog = null;
@@ -22,6 +21,7 @@ public class UIDialogParents : UIDialogBase {
 	}
 
 	private void Awake() {
+		languageButtons = GetComponentsInChildren<UIButtonLanguage>();
 		var currentLanguage = LanguageController.Instance.CurrentLanguage;
 		foreach (var i in languageButtons) {
 			if (currentLanguage == i.Language) {

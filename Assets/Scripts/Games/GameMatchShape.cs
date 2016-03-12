@@ -63,6 +63,7 @@ public class GameMatchShape : GameBase {
 			droppedShape.OnDrag += OnShapeDrag;
 			droppedShape.CurrentVisualMode = Shape.VisualMode.ShapeWithShadow;
 			droppedShape.CurrentFaceAnimation = Shape.FaceAnimation.Idle;
+			droppedShape.SpeakShapeType();
 		} else {
 			SoundController.Sound(SoundController.SOUND_WIN);
 			InvokeAfterDelay(0.5f, GameEnd);

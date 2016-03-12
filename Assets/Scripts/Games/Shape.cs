@@ -239,6 +239,36 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 		}
 	}
 
+	public void SpeakShapeType() {
+		var sound = "";
+		switch (CurrentShape) {
+		case Type.Circle:
+			sound = SoundController.VOICE_CIRCLE;
+			break;
+		case Type.Ellipse:
+			sound = SoundController.VOICE_ELLIPSE;
+			break;
+		case Type.Heart:
+			sound = SoundController.VOICE_HEART;
+			break;
+		case Type.Polygon:
+			sound = SoundController.VOICE_POLYGON;
+			break;
+		case Type.Rectangle:
+			sound = SoundController.VOICE_RECTANGLE;
+			break;
+		case Type.Rhomb:
+			sound = SoundController.VOICE_RHOMB;
+			break;
+		case Type.Triangle:
+			sound = SoundController.VOICE_TRIANGLE;
+			break;
+		}
+		if (!string.IsNullOrEmpty(sound)) {
+			SoundController.Voice(sound);
+		}
+	}
+
 	private IEnumerator ScaleIn(System.Action actionAfter) {
 		transform.localScale = Vector3.zero;
 

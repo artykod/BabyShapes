@@ -30,7 +30,7 @@ public class UIDialogBase : MonoBehaviour {
 			dialogContentRoot.localScale = Vector3.Lerp(dialogContentRoot.localScale, endScale, 0.2f);
 
 			if (canvasGroup != null) {
-				canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 0f, 0.15f);
+				canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, 0f, 0.2f);
 			}
 
 			if (Mathf.Abs(dialogContentRoot.localScale.x - endScale.x) < 0.01f) {

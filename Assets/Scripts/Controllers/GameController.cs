@@ -18,6 +18,9 @@ public class GameController : AbstractSingletonBehaviour<GameController, GameCon
 		Previous,
 	}
 
+	private const GameTypes INITIAL_GAME = GameTypes.MatchShape;
+	//private const GameTypes INITIAL_GAME = GameTypes.FallShapes;
+
 	private GameTypes[] gamesOrder = new GameTypes[] {
 		GameTypes.MatchShape,
 		GameTypes.MatchColor,
@@ -28,7 +31,7 @@ public class GameController : AbstractSingletonBehaviour<GameController, GameCon
 	private GameBase currentGame = null;
 
 	public void StartNextGame(GamesNavigation navigation) {
-		var nextGame = GameTypes.MatchShape;
+		var nextGame = INITIAL_GAME;
 		if (currentGame != null) {
 			var index = 0;
 			for (int i = 0; i < gamesOrder.Length; i++) {

@@ -255,7 +255,7 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 			sound = SoundController.VOICE_POLYGON;
 			break;
 		case Type.Rectangle:
-			sound = SoundController.VOICE_RECTANGLE;
+			sound = SoundController.VOICE_SQUARE;
 			break;
 		case Type.Rhomb:
 			sound = SoundController.VOICE_RHOMB;

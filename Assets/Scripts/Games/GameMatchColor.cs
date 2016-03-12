@@ -63,7 +63,7 @@ public class GameMatchColor : GameBase {
 			ShapesPool.Instance.ReturnShape(shape);
 			shapes.Remove(shape);
 
-			SoundController.Sound(SoundController.SOUND_CORRECT);
+			SoundController.Sound(SoundController.SOUND_CORRECT_2);
 
 			bool isSomeoneExists = false;
 			foreach (var i in shapes) {
@@ -79,7 +79,7 @@ public class GameMatchColor : GameBase {
 			}
 		} else {
 			shape.CurrentFaceAnimation = Shape.FaceAnimation.Mad;
-			SoundController.Sound(SoundController.SOUND_INCORRECT);
+			SoundController.Sound(SoundController.SOUND_INCORRECT_2);
 		}
 	}
 

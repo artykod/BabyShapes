@@ -8,9 +8,14 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 	private const string PATH_VOICES = "voices/";
 
 	public const string SOUND_CORRECT = "correct_1";
+	public const string SOUND_CORRECT_2 = "correct_2";
 	public const string SOUND_INCORRECT = "incorect_1_1";
+	public const string SOUND_INCORRECT_2 = "incorect_2_1";
 	public const string SOUND_WIN = "select_1";
 	public const string SOUND_WIN_KIDS = "yheea_kids";
+	public const string SOUND_WIN_HANDS = "claping hand";
+	public const string SOUND_WIN_BALOON_1 = "ballon1";
+	public const string SOUND_WIN_BALOON_2 = "ballon2";
 
 	public const string MUSIC_STANDARD = "music";
 

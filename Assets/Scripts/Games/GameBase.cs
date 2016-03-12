@@ -22,10 +22,6 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 	}
 
 	protected T GenerateRandomEnum<T>() where T : struct {
-		if (!typeof(T).IsEnum) {
-			return default(T);
-		}
-
 		var allValues = (T[])System.Enum.GetValues(typeof(T));
 		var randomIndex = Random.Range(1, allValues.Length - 1);
 
@@ -33,10 +29,6 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 	}
 
 	protected T GenerateRandomEnumExclude<T>(T excluded) where T : struct {
-		if (!typeof(T).IsEnum) {
-			return default(T);
-		}
-
 		T result = excluded;
 		int limit = 10;
 

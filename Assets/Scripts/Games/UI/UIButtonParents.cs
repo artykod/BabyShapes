@@ -6,6 +6,6 @@
 	}
 
 	protected override void OnClick() {
-		UIDialogParents.Open();
+		UIDialogParents.ShowSingle();
 	}
 }

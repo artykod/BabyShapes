@@ -6,7 +6,7 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 	private const string PATH_SOUNDS = "sounds/";
 	private const string PATH_MUSICS = "music/";
 	private const string PATH_VOICES = "voices/";
-
+	
 	public const string SOUND_CORRECT = "correct_1";
 	public const string SOUND_CORRECT_2 = "correct_2";
 	public const string SOUND_INCORRECT = "incorect_1_1";
@@ -19,6 +19,7 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 
 	public const string MUSIC_STANDARD = "music";
 
+	public const string VOICE_HELLO = "hi_baby";
 	public const string VOICE_CIRCLE = "circle";
 	public const string VOICE_HEART = "heart";
 	public const string VOICE_ELLIPSE = "oval";

@@ -35,11 +35,6 @@ public class DebugConsole : MonoBehaviour {
 	}
 
 	public static void Application_logMessageReceived(string log, string stackTrace, LogType type) {
-		/*if (log.StartsWith("Font size and style")) {
-			// игнорим юнитевский спам из-за того, что кто-то не сделал интфейсы нормально
-			return;
-		}*/
-
 		Color logColor = Color.white;
 
 		switch (type) {
@@ -70,8 +65,6 @@ public class DebugConsole : MonoBehaviour {
 
 		scrollPosition.y = float.MaxValue;
 	}
-
-	private float counter = 0f;
 
 	private void OnGUI() {
 		GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(Screen.width / width, Screen.height / height, 1f));

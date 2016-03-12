@@ -25,7 +25,7 @@ Thumbs.db
 [Dd]ebug/
 [Rr]elease/
 x64/
-build/
+[Bb]uild/
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/

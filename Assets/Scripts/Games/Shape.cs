@@ -243,7 +243,7 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 		transform.localScale = Vector3.zero;
 
 		var time = 0f;
-		var timeTotal = 0.25f;
+		var timeTotal = 0.35f;
 		while (time <= timeTotal) {
 			var t = time / timeTotal;
 			time += Time.deltaTime;

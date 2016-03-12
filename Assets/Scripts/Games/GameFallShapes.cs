@@ -62,8 +62,10 @@ public class GameFallShapes : GameBase {
 			if (shape != null && shape == this.shape) {
 				if (game.mainShape.CurrentColor == shape.CurrentColor && game.mainShape.CurrentShape == shape.CurrentShape) {
 					OnSuccessClick(this);
+					SoundController.Sound(SoundController.SOUND_CORRECT);
 				} else {
 					shape.CurrentFaceAnimation = Shape.FaceAnimation.Mad;
+					SoundController.Sound(SoundController.SOUND_INCORRECT);
 				}
 			}
 		}
@@ -122,6 +124,7 @@ public class GameFallShapes : GameBase {
 		newShapeDelay /= 2f;
 
 		if (successClicks > 5) {
+			SoundController.Sound(SoundController.SOUND_WIN_KIDS);
 			InvokeAfterDelay(0.5f, GameEnd);
 		}
 	}
@@ -135,12 +138,9 @@ public class GameFallShapes : GameBase {
 		successClicks = 0;
 		newShapeDelay = 0f;
 
-		foreach (var shape in shapes) {
-			shape.Destroy();
-		}
 		shapes.Clear();
-
-		ShapesPool.Instance.ReturnShape(mainShape, true, 0f);
 		mainShape = null;
+
+		ShapesPool.Instance.ReturnAllShapes();
 	}
 }

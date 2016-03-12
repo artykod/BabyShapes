@@ -64,6 +64,7 @@ public class GameMatchShape : GameBase {
 			droppedShape.CurrentVisualMode = Shape.VisualMode.ShapeWithShadow;
 			droppedShape.CurrentFaceAnimation = Shape.FaceAnimation.Idle;
 		} else {
+			SoundController.Sound(SoundController.SOUND_WIN);
 			InvokeAfterDelay(0.5f, GameEnd);
 		}
 	}
@@ -72,7 +73,7 @@ public class GameMatchShape : GameBase {
 		var worldPointer = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		var selfPosition = shape.transform.position;
 		worldPointer.z = selfPosition.z;
-		selfPosition = Vector3.Lerp(selfPosition, worldPointer, 0.25f);
+		selfPosition = Vector3.Lerp(selfPosition, worldPointer, 0.4f);
 		shape.transform.position = selfPosition;
 	}
 
@@ -87,6 +88,7 @@ public class GameMatchShape : GameBase {
 					shape.CurrentVisualMode = Shape.VisualMode.ShapeInSlot;
 					shape.CurrentFaceAnimation = Shape.FaceAnimation.Ok;
 					DropNewShape();
+					SoundController.Sound(SoundController.SOUND_CORRECT);
 					break;
 				}
 			}

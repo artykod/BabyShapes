@@ -36,7 +36,7 @@ public class ShapesPool : AbstractSingleton<ShapesPool, ShapesPool> {
 		return shape;
 	}
 
-	public void ReturnShape(Shape shape, bool animated = true, float animationDelay = 0.25f) {
+	public void ReturnShape(Shape shape, bool animated = true, float animationDelay = 0.15f) {
 		if (shape == null) {
 			return;
 		}

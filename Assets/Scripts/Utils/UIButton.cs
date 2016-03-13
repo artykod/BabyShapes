@@ -19,6 +19,7 @@ public abstract class UIButton : MonoBehaviour, IPointerClickHandler, IPointerDo
 
 		if (canClick && (Time.unscaledTime - clickStartTime) > HoldTime) {
 			OnClick();
+			SoundController.Sound(SoundController.SOUND_BUTTON_CLICK);
 		}
 	}
 

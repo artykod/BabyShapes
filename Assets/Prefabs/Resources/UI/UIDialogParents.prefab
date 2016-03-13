@@ -374,6 +374,7 @@ GameObject:
   - 114: {fileID: 11420744}
   - 114: {fileID: 11405080}
   - 114: {fileID: 11467516}
+  - 114: {fileID: 11482562}
   m_Layer: 5
   m_Name: more_games
   m_TagString: Untagged
@@ -679,6 +680,7 @@ GameObject:
   - 114: {fileID: 11489334}
   - 114: {fileID: 11478494}
   - 114: {fileID: 11404316}
+  - 114: {fileID: 11402660}
   m_Layer: 5
   m_Name: rate_us
   m_TagString: Untagged
@@ -851,6 +853,17 @@ MonoBehaviour:
   product: 3
   price: $4.99
   titleText: {fileID: 11401418}
+--- !u!114 &11402660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 185432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 820ece4c897b2f044bfde074e91d9f56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11402886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2590,6 +2603,17 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: 100
   m_FlexibleHeight: -1
+--- !u!114 &11482562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d3e88a4601f6904cb0019628e683eea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11483142
 MonoBehaviour:
   m_ObjectHideFlags: 1

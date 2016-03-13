@@ -1,4 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System.Collections;
+using System.Collections.Generic;
 
 public class SoundController : AbstractSingletonBehaviour<SoundController, SoundController> {
 	private const string PREFS_SOUND_ENABLED = "sound_on";
@@ -6,7 +10,8 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 	private const string PATH_SOUNDS = "sounds/";
 	private const string PATH_MUSICS = "music/";
 	private const string PATH_VOICES = "voices/";
-	
+
+	public const string SOUND_BUTTON_CLICK = "button";
 	public const string SOUND_CORRECT = "correct_1";
 	public const string SOUND_CORRECT_2 = "correct_2";
 	public const string SOUND_INCORRECT = "incorect_1_1";
@@ -36,6 +41,10 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 
 	private AudioSource sourceSound = null;
 	private AudioSource sourceMusic = null;
+
+	private static IEnumerator buttonsClickTracker = null;
+	private static Button lastSelectedButton = null;
+	private static HashSet<string> activeSounds = new HashSet<string>();
 
 	public static string RandomVoiceExcellent {
 		get {
@@ -75,7 +84,25 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 			return;
 		}
 
+		StartCoroutine(PlaySoundRoutine(sound));
+	}
+
+	private IEnumerator PlaySoundRoutine(string sound) {
+		if (activeSounds.Contains(sound)) {
+			yield break;
+		}
+
 		sourceSound.PlayOneShot(LoadAudio(sound));
+
+		activeSounds.Add(sound);
+
+		var delay = 0.1f;
+		while (delay > 0f) {
+			delay -= Time.deltaTime;
+			yield return null;
+		}
+
+		activeSounds.Remove(sound);
 	}
 
 	private void PlayMusic(string music) {
@@ -94,5 +121,70 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 	private void Awake() {
 		sourceSound = gameObject.AddComponent<AudioSource>();
 		sourceMusic = gameObject.AddComponent<AudioSource>();
+	}
+
+	public static void StartButtonsClickTracker() {
+		if (buttonsClickTracker != null) {
+			return;
+		}
+		Instance.StartCoroutine(buttonsClickTracker = TrackButtonsClick());
+	}
+
+	public static void StopButtonsClickTracker() {
+		if (buttonsClickTracker == null) {
+			return;
+		}
+
+		Instance.StopCoroutine(buttonsClickTracker);
+		buttonsClickTracker = null;
+		UnsubscribeFromButtonClick();
+	}
+
+	private static void SubscribeToButtonClick(Button button) {
+		UnsubscribeFromButtonClick();
+		if (button != null) {
+			lastSelectedButton = button;
+			lastSelectedButton.onClick.AddListener(ButtonClickListener);
+		}
+	}
+	private static void UnsubscribeFromButtonClick() {
+		if (lastSelectedButton != null) {
+			lastSelectedButton.onClick.RemoveListener(ButtonClickListener);
+			lastSelectedButton = null;
+		}
+	}
+
+	private static void ButtonClickListener() {
+		Sound(SOUND_BUTTON_CLICK);
+		UnsubscribeFromButtonClick();
+	}
+
+	private static IEnumerator TrackButtonsClick() {
+		while (true) {
+			int touchId = -1;
+			bool isTouched = Input.GetMouseButtonDown(0);
+
+#if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
+			isTouched = Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began;
+			if (isTouched) {
+				touchId = Input.GetTouch(0).fingerId;
+			}
+#endif
+
+			if (isTouched) {
+				var eventSystem = EventSystem.current;
+				if (eventSystem != null) {
+					var obj = eventSystem.currentSelectedGameObject;
+					if (obj != null && eventSystem.IsPointerOverGameObject(touchId)) {
+						Button button = obj.GetComponent<Button>();
+						if (button != null && button.interactable) {
+							SubscribeToButtonClick(button);
+						}
+					}
+				}
+			}
+
+			yield return null;
+		}
 	}
 }

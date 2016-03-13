@@ -1,15 +1,8 @@
 ﻿using UnityEngine;
 
 public class UIButtonInApp : UIButton {
-	public enum InAppProduct {
-		Unknown,
-		Developers,
-		Artists,
-		Testers,
-	}
-
 	[SerializeField]
-	private InAppProduct product = InAppProduct.Unknown;
+	private PurchasesManager.InAppProduct product = PurchasesManager.InAppProduct.Unknown;
 	[SerializeField]
 	private string price = "$0.99";
 	[SerializeField]
@@ -23,6 +16,14 @@ public class UIButtonInApp : UIButton {
 	}
 
 	protected override void OnClick() {
-		Debug.Log("TODO: Purchase product: " + product);
+		PurchasesManager.Instance.BuyProduct(product, ShowThanks, ShowError);
+	}
+
+	private void ShowThanks() {
+		Debug.Log("TODO show thanks purchase dialog");
+	}
+
+	private void ShowError() {
+		Debug.Log("TODO show failed purchase dialog");
 	}
 }

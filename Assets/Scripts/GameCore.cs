@@ -41,6 +41,8 @@ public class GameCore : MonoBehaviour {
 		LanguageController.Instance.Initialize();
 		SoundController.Music(SoundController.MUSIC_STANDARD);
 		SoundController.StartButtonsClickTracker();
+
+		Debug.Log("Is someone purchase done: " + PurchasesManager.Instance.IsSomeonePurchaseDone);
 	}
 
 	private IEnumerator Start() {

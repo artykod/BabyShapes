@@ -153,9 +153,8 @@ public class GameFallShapes : GameBase {
 
 			newShapeDelay /= 2f;
 
-			if (successClicks > 5) {
-				SoundController.Sound(SoundController.SOUND_WIN_KIDS);
-				SoundController.Sound(SoundController.SOUND_WIN_HANDS);
+			if (successClicks > 3) {
+				EffectWin.PlayEffect();
 				SoundController.Voice(SoundController.VOICE_WELL_DONE);
 				InvokeAfterDelay(0.5f, GameEnd);
 			} else {

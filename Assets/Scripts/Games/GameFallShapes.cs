@@ -160,7 +160,7 @@ public class GameFallShapes : GameBase {
 				InvokeAfterDelay(0.5f, GameEnd);
 			} else {
 				if (excellentBaloonCounter++ % 3 == 0) {
-					mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "excellent", SoundController.VOICE_EXCELLENT);
+					mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "excellent", SoundController.RandomVoiceExcellent);
 				}
 			}
 		} else {
@@ -169,11 +169,6 @@ public class GameFallShapes : GameBase {
 			}
 			excellentBaloonCounter = 0;
 		}
-	}
-
-	protected override void GameEnd() {
-		GameUnload();
-		GameStart();
 	}
 
 	protected override void GameUnload() {

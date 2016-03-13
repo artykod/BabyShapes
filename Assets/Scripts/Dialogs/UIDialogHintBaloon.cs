@@ -36,6 +36,17 @@ public class UIDialogHintBaloon : UIDialogGeneric<UIDialogHintBaloon> {
 	private static HashSet<UIDialogHintBaloon> allBaloons = new HashSet<UIDialogHintBaloon>();
 	private static Dictionary<string, UIDialogHintBaloon> activeBaloonsWithHashes = new Dictionary<string, UIDialogHintBaloon>();
 
+	public static Direction RandomTop {
+		get {
+			return Random.value > 0.5f ? Direction.LeftTop : Direction.RightTop;
+		}
+	}
+	public static Direction RandomBottom {
+		get {
+			return Random.value > 0.5f ? Direction.LeftBottom : Direction.RightBottom;
+		}
+	}
+
 	public static UIDialogHintBaloon ShowWithText(Transform parent, Direction direction, string text, string voice = null) {
 		var baloonHash = parent.GetHashCode().ToString() + "_" + direction;
 		var baloon = null as UIDialogHintBaloon;

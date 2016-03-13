@@ -23,6 +23,12 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 		GameUpdate();
 	}
 
+	protected void GameEnd() {
+		GameUnload();
+		UIDialogHintBaloon.ForceHideAll();
+		GameStart();
+	}
+
 	protected T GenerateRandomEnum<T>() where T : struct {
 		var allValues = (T[])System.Enum.GetValues(typeof(T));
 		var randomIndex = Random.Range(1, allValues.Length - 1);
@@ -92,7 +98,6 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 	protected abstract void GameLoad();
 	protected abstract void GameStart();
 	protected abstract void GameUpdate();
-	protected abstract void GameEnd();
 	protected abstract void GameUnload();
 
 	void GameController.IGame.OnStart() {

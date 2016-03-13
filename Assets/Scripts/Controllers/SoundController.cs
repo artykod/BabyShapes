@@ -37,6 +37,12 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 	private AudioSource sourceSound = null;
 	private AudioSource sourceMusic = null;
 
+	public static string RandomVoiceExcellent {
+		get {
+			return Random.value > 0.5 ? VOICE_EXCELLENT : VOICE_KEEP_IT_UP;
+		}
+	}
+
 	public bool IsSoundEnabled {
 		get {
 			return PlayerPrefs.GetInt(PREFS_SOUND_ENABLED, 1) > 0;

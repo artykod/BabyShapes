@@ -18,6 +18,7 @@ public class GameMatchShape : GameBase {
 
 	private LinkedList<Shape> shapes = new LinkedList<Shape>();
 	private Shape droppedShape = null;
+	private Shape lastMatchedShape = null;
 
 	protected override void GameLoad() {
 		
@@ -71,7 +72,18 @@ public class GameMatchShape : GameBase {
 			droppedShape.OnClick += OnDroppedShapeClick;
 		} else {
 			SoundController.Sound(SoundController.SOUND_WIN);
-			InvokeAfterDelay(0.5f, GameEnd);
+
+			foreach (var i in shapes) {
+				if (lastMatchedShape != i) {
+					i.CurrentFaceAnimation = Shape.FaceAnimation.Happy;
+				}
+			}
+
+			if (lastMatchedShape != null) {
+				lastMatchedShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "excellent", SoundController.RandomVoiceExcellent);
+			}
+
+			InvokeAfterDelay(1f, GameEnd);
 		}
 	}
 
@@ -97,6 +109,7 @@ public class GameMatchShape : GameBase {
 				if (Vector3.Distance(a, b) < 0.8f) {
 					shape.CurrentVisualMode = Shape.VisualMode.ShapeInSlot;
 					shape.CurrentFaceAnimation = Shape.FaceAnimation.Ok;
+					lastMatchedShape = shape;
 					DropNewShape();
 					SoundController.Sound(SoundController.SOUND_CORRECT);
 					break;
@@ -105,14 +118,10 @@ public class GameMatchShape : GameBase {
 		}
 	}
 
-	protected override void GameEnd() {
-		GameUnload();
-		GameStart();
-	}
-
 	protected override void GameUnload() {
 		ShapesPool.Instance.ReturnAllShapes();
 		shapes.Clear();
 		droppedShape = null;
+		lastMatchedShape = null;
 	}
 }

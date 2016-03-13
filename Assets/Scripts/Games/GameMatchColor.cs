@@ -83,21 +83,24 @@ public class GameMatchColor : GameBase {
 
 			if (!isSomeoneExists) {
 				SoundController.Sound(SoundController.SOUND_WIN);
-				InvokeAfterDelay(0.5f, GameEnd);
+				mainShape.ShowHint(UIDialogHintBaloon.RandomBottom, "excellent", SoundController.RandomVoiceExcellent);
+				mainShape.CurrentFaceAnimation = Shape.FaceAnimation.Ok;
+
+				foreach (var i in shapes) {
+					i.CurrentFaceAnimation = Shape.FaceAnimation.Happy;
+				}
+
+				InvokeAfterDelay(1f, GameEnd);
 			}
 		} else {
 			shape.CurrentFaceAnimation = Shape.FaceAnimation.Mad;
 			SoundController.Sound(SoundController.SOUND_INCORRECT_2);
+			mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "where_is", SoundController.VOICE_WHERE_IS);
 		}
 	}
 
 	protected override void GameUpdate() {
 		//
-	}
-
-	protected override void GameEnd() {
-		GameUnload();
-		GameStart();
 	}
 
 	protected override void GameUnload() {

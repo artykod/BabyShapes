@@ -9,7 +9,7 @@ public class GameFallShapes : GameBase {
 	}
 
 	private class FallShape {
-		public event System.Action<FallShape> OnSuccessClick = delegate { };
+		public event System.Action<FallShape, bool> OnSuccessClick = delegate { };
 
 		private GameFallShapes game = null;
 		private Shape shape = null;
@@ -56,9 +56,10 @@ public class GameFallShapes : GameBase {
 		private void OnShapeClick(Shape shape) {
 			if (shape != null && shape == this.shape) {
 				if (game.mainShape.CurrentColor == shape.CurrentColor && game.mainShape.CurrentShape == shape.CurrentShape) {
-					OnSuccessClick(this);
+					OnSuccessClick(this, true);
 					SoundController.Sound(SoundController.SOUND_CORRECT);
 				} else {
+					OnSuccessClick(this, false);
 					shape.CurrentFaceAnimation = Shape.FaceAnimation.Mad;
 					SoundController.Sound(SoundController.SOUND_INCORRECT);
 				}
@@ -80,10 +81,12 @@ public class GameFallShapes : GameBase {
 	private Rect worldFieldRect;
 	private int hackComputeWorldRectSizeCounter = 4;
 	private int excellentBaloonCounter = 0;
+	private int wrongBaloonCounter = 0;
 
 	protected override void GameLoad() {
 		RefreshFieldWorldRect();
 		excellentBaloonCounter = 0;
+		wrongBaloonCounter = 0;
 	}
 
 	protected void RefreshFieldWorldRect() {
@@ -141,24 +144,30 @@ public class GameFallShapes : GameBase {
 		}
 	}
 
-	private void OnSuccessShapeClick(FallShape shape) {
-		successClicks++;
+	private void OnSuccessShapeClick(FallShape shape, bool isSuccess) {
+		if (isSuccess) {
+			successClicks++;
 
-		shape.Destroy();
-		shapes.Remove(shape);
+			shape.Destroy();
+			shapes.Remove(shape);
 
-		newShapeDelay /= 2f;
+			newShapeDelay /= 2f;
 
-		if (successClicks > 5) {
-			SoundController.Sound(SoundController.SOUND_WIN_KIDS);
-			SoundController.Sound(SoundController.SOUND_WIN_HANDS);
-			SoundController.Voice(SoundController.VOICE_WELL_DONE);
-			InvokeAfterDelay(0.5f, GameEnd);
-		} else {
-			if (excellentBaloonCounter++ % 3 == 0) {
-				mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "excellent");
-				SoundController.Voice(SoundController.VOICE_EXCELLENT);
+			if (successClicks > 5) {
+				SoundController.Sound(SoundController.SOUND_WIN_KIDS);
+				SoundController.Sound(SoundController.SOUND_WIN_HANDS);
+				SoundController.Voice(SoundController.VOICE_WELL_DONE);
+				InvokeAfterDelay(0.5f, GameEnd);
+			} else {
+				if (excellentBaloonCounter++ % 3 == 0) {
+					mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "excellent", SoundController.VOICE_EXCELLENT);
+				}
 			}
+		} else {
+			if (wrongBaloonCounter++ % 3 == 0) {
+				mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "where_is", SoundController.VOICE_WHERE_IS);
+			}
+			excellentBaloonCounter = 0;
 		}
 	}
 

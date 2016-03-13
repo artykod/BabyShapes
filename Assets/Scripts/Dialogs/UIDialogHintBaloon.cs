@@ -31,15 +31,37 @@ public class UIDialogHintBaloon : UIDialogGeneric<UIDialogHintBaloon> {
 	private RectTransform baloonContent = null;
 
 	private Direction currentDirection = Direction.LeftBottom;
+	private string baloonHash = null;
 
 	private static HashSet<UIDialogHintBaloon> allBaloons = new HashSet<UIDialogHintBaloon>();
+	private static Dictionary<string, UIDialogHintBaloon> activeBaloonsWithHashes = new Dictionary<string, UIDialogHintBaloon>();
 
-	public static UIDialogHintBaloon ShowWithText(Transform parent, Direction direction, string text) {
-		var baloon = Show(false);
-		baloon.currentDirection = direction;
-		baloon.hintText.text = text + "\n";
-		baloon.baloonContent.SetParent(parent, false);
-		baloon.baloonContent.localPosition = Vector3.zero;
+	public static UIDialogHintBaloon ShowWithText(Transform parent, Direction direction, string text, string voice = null) {
+		var baloonHash = parent.GetHashCode().ToString() + "_" + direction;
+		var baloon = null as UIDialogHintBaloon;
+		var canPlayVoice = true;
+
+		text += '\n';
+
+		if (!activeBaloonsWithHashes.TryGetValue(baloonHash, out baloon)) {
+			baloon = Show(false);
+
+			baloon.currentDirection = direction;
+			baloon.baloonContent.SetParent(parent, false);
+			baloon.baloonContent.localPosition = Vector3.zero;
+			baloon.baloonHash = baloonHash;
+
+			activeBaloonsWithHashes.Add(baloonHash, baloon);
+		} else {
+			canPlayVoice = baloon.hintText.text != text;
+		}
+
+		baloon.hintText.text = text;
+
+		if (canPlayVoice) {
+			SoundController.Voice(voice);
+		}
+
 		return baloon;
 	}
 
@@ -66,6 +88,9 @@ public class UIDialogHintBaloon : UIDialogGeneric<UIDialogHintBaloon> {
 		}
 
 		allBaloons.Remove(this);
+
+		activeBaloonsWithHashes.Remove(baloonHash);
+		baloonHash = null;
 	}
 
 	private IEnumerator Start() {

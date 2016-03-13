@@ -275,8 +275,8 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 		}
 	}
 
-	public void ShowHint(UIDialogHintBaloon.Direction direction, string text) {
-		UIDialogHintBaloon.ShowWithText(transform, direction, LanguageController.Localize(text));
+	public void ShowHint(UIDialogHintBaloon.Direction direction, string text, string voice = null) {
+		UIDialogHintBaloon.ShowWithText(transform, direction, LanguageController.Localize(text), voice);
 	}
 
 	private IEnumerator ScaleIn(System.Action actionAfter) {

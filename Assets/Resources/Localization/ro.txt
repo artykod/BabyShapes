@@ -3,6 +3,7 @@
 	"excellent":"Excellent!",
 	"keep_it_up":"Keep it up!",
 	"well_done":"Well done!",
+	"where_is":"Where is?",
 	"parents_thanks_text":"Thank you that you are with us!\nYou can remove the ads and support our team by selecting the following options:",
 	"in_app_1":"Coffee for developers",
 	"in_app_2":"Paints for the illustrators",

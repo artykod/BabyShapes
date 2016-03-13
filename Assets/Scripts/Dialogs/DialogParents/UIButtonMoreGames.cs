@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class UIButtonMoreGames : UIButton {
 	private enum OtherGames {
-		Unknown,
 		Lamphead,
 		DropHunt,
 		BlitzBlotz,
@@ -42,9 +40,11 @@ public class UIButtonMoreGames : UIButton {
 		{ OtherGames.BlitzBlotz, new GameUrls("1042324945", "com.oriplay.BlitzBlotz", "blitz-blotz/9wzdncrdt2gz") },
 	};
 
+	private static int counter = 0;
+
 	protected override void OnClick() {
 		var otherGame = null as GameUrls;
-		urls.TryGetValue((OtherGames)Random.Range((int)OtherGames.Unknown + 1, (int)OtherGames.Count), out otherGame);
+		urls.TryGetValue((OtherGames)(counter++ %(int)OtherGames.Count), out otherGame);
 		if (otherGame != null) {
 			GameCore.GoToAppPageInStore(otherGame.Url);
 		}

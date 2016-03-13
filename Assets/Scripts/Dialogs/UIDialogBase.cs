@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class UIDialogBase : MonoBehaviour {
 	[SerializeField]
@@ -22,6 +21,14 @@ public class UIDialogBase : MonoBehaviour {
 			dialogContentRoot.localScale = Vector3.one;
 			endScale = Vector3.one * 2f;
 			onScaleAnimationEndAction = () => Destroy(gameObject);
+		}
+	}
+
+	protected virtual void Awake() {
+		var canvas = GetComponent<Canvas>();
+		if (canvas != null) {
+			canvas.renderMode = RenderMode.ScreenSpaceCamera;
+			canvas.worldCamera = Camera.main;
 		}
 	}
 

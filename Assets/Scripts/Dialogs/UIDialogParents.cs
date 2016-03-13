@@ -1,7 +1,8 @@
 ﻿public class UIDialogParents : UIDialogGeneric<UIDialogParents> {
 	private UIButtonLanguage[] languageButtons = null;
 
-	private void Awake() {
+	protected override void Awake() {
+		base.Awake();
 		languageButtons = GetComponentsInChildren<UIButtonLanguage>();
 		var currentLanguage = LanguageController.Instance.CurrentLanguage;
 		foreach (var i in languageButtons) {

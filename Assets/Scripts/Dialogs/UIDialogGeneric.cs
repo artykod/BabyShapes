@@ -12,7 +12,7 @@ public class UIDialogGeneric<T> : UIDialogBase where T : UIDialogBase {
 		return Show(animated);
 	}
 
-	public static UIDialogBase Show(bool animated = true) {
+	public static T Show(bool animated = true) {
 		var prefab = Resources.Load<T>("UI/" + typeof(T).Name);
 		if (prefab != null) {
 			currentDialog = Instantiate(prefab);

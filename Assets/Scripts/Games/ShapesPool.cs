@@ -13,13 +13,13 @@ public class ShapesPool : AbstractSingleton<ShapesPool, ShapesPool> {
 
 	public void Initialize() {
 		if (pool.Count < 1) {
-			ExpandPool(25);
+			ExpandPool(10);
 		}
 	}
 
 	public Shape GetShape(Shape.Type shapeType, Shape.Color shapeColor, Shape.VisualMode visualMode, Transform newParent = null) {
 		if (pool.Count < 1) {
-			ExpandPool(1);
+			ExpandPool(5);
 		}
 
 		var shape = pool.First.Value;

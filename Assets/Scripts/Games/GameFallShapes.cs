@@ -34,12 +34,12 @@ public class GameFallShapes : GameBase {
 		public bool UpdateFrame() {
 			Vector3 pos = shape.transform.position;
 			pos += velocity * Time.deltaTime;
-			if (pos.x < game.worldFieldRect.xMin + 1f) {
-				pos.x = game.worldFieldRect.xMin + 1f;
+			if (pos.x < game.worldFieldRect.xMin + 1.1f) {
+				pos.x = game.worldFieldRect.xMin + 1.1f;
 				velocity.x = -velocity.x;
 			}
-			if (pos.x > game.worldFieldRect.xMax - 1f) {
-				pos.x = game.worldFieldRect.xMax - 1f;
+			if (pos.x > game.worldFieldRect.xMax - 1.1f) {
+				pos.x = game.worldFieldRect.xMax - 1.1f;
 				velocity.x = -velocity.x;
 			}
 			shape.transform.position = pos;
@@ -105,7 +105,6 @@ public class GameFallShapes : GameBase {
 		mainShape = GenerateRandomShape(mainShapeRoot);
 		mainShape.CurrentVisualMode = Shape.VisualMode.ShapeInSlot;
 		mainShape.CurrentFaceAnimation = Shape.FaceAnimation.Idle;
-		mainShape.OnClickCooldown = 2f;
 		mainShape.OnClick += OnMainShapeClick;
 
 		InvokeStartHintIfNotShowed(() => OnMainShapeClick(mainShape));

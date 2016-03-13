@@ -31,7 +31,6 @@ public class GameMatchColor : GameBase {
 		mainShape.CurrentVisualMode = Shape.VisualMode.ShapeWithShadow;
 		mainShape.CurrentFaceAnimation = Shape.FaceAnimation.Idle;
 		mainShape.OnClick += OnMainShapeClick;
-		mainShape.OnClickCooldown = 2f;
 
 		var matches = new HashSet<int>();
 		while (matches.Count < SHAPES_MATCHES_LIMIT) {

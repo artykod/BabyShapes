@@ -67,8 +67,6 @@ public class GameMatchShape : GameBase {
 			droppedShape.CurrentVisualMode = Shape.VisualMode.ShapeWithShadow;
 			droppedShape.CurrentFaceAnimation = Shape.FaceAnimation.Idle;
 			droppedShape.SpeakShapeType();
-
-			droppedShape.OnClickCooldown = 2f;
 			droppedShape.OnClick += OnDroppedShapeClick;
 		} else {
 			SoundController.Sound(SoundController.SOUND_WIN);

@@ -43,6 +43,8 @@ public class GameMatchShape : GameBase {
 		}
 
 		DropNewShape();
+		
+		InvokeStartHintIfNotShowed(() => OnDroppedShapeClick(droppedShape));
 	}
 
 	private void DropNewShape() {
@@ -64,10 +66,17 @@ public class GameMatchShape : GameBase {
 			droppedShape.CurrentVisualMode = Shape.VisualMode.ShapeWithShadow;
 			droppedShape.CurrentFaceAnimation = Shape.FaceAnimation.Idle;
 			droppedShape.SpeakShapeType();
+
+			droppedShape.OnClickCooldown = 2f;
+			droppedShape.OnClick += OnDroppedShapeClick;
 		} else {
 			SoundController.Sound(SoundController.SOUND_WIN);
 			InvokeAfterDelay(0.5f, GameEnd);
 		}
+	}
+
+	private void OnDroppedShapeClick(Shape shape) {
+		shape.ShowHint(UIDialogHintBaloon.Direction.RightTop, "Match the shape!");
 	}
 
 	private void OnShapeDrag(Shape shape, Vector2 delta) {

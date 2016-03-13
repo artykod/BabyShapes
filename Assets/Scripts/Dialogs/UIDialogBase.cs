@@ -32,6 +32,10 @@ public class UIDialogBase : MonoBehaviour {
 		}
 	}
 
+	protected virtual void OnDestroy() {
+
+	}
+
 	private void Update() {
 		if (dialogContentRoot != null) {
 			dialogContentRoot.localScale = Vector3.Lerp(dialogContentRoot.localScale, endScale, 0.2f);

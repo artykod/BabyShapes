@@ -18,7 +18,7 @@ public class GameFallShapes : GameBase {
 		public FallShape(GameFallShapes game) {
 			this.game = game;
 
-			var gameTransform = game.transform as RectTransform;
+			var gameTransform = game.fieldRect;
 			shape = Random.value > 0.5f ? game.GenerateRandomShape(gameTransform) : game.GenerateSameShape(game.mainShape, gameTransform);
 			velocity = new Vector3(Random.Range(-3f, 3f), -2.5f);
 
@@ -79,9 +79,11 @@ public class GameFallShapes : GameBase {
 	private int successClicks = 0;
 	private Rect worldFieldRect;
 	private int hackComputeWorldRectSizeCounter = 4;
+	private int excellentBaloonCounter = 0;
 
 	protected override void GameLoad() {
 		RefreshFieldWorldRect();
+		excellentBaloonCounter = 0;
 	}
 
 	protected void RefreshFieldWorldRect() {
@@ -100,6 +102,14 @@ public class GameFallShapes : GameBase {
 		mainShape = GenerateRandomShape(mainShapeRoot);
 		mainShape.CurrentVisualMode = Shape.VisualMode.ShapeInSlot;
 		mainShape.CurrentFaceAnimation = Shape.FaceAnimation.Idle;
+		mainShape.OnClickCooldown = 2f;
+		mainShape.OnClick += OnMainShapeClick;
+
+		InvokeStartHintIfNotShowed(() => OnMainShapeClick(mainShape));
+	}
+
+	private void OnMainShapeClick(Shape shape) {
+		shape.ShowHint(UIDialogHintBaloon.Direction.LeftTop, "Match the shape!");
 	}
 
 	protected override void GameUpdate() {
@@ -142,7 +152,13 @@ public class GameFallShapes : GameBase {
 		if (successClicks > 5) {
 			SoundController.Sound(SoundController.SOUND_WIN_KIDS);
 			SoundController.Sound(SoundController.SOUND_WIN_HANDS);
+			SoundController.Voice(SoundController.VOICE_WELL_DONE);
 			InvokeAfterDelay(0.5f, GameEnd);
+		} else {
+			if (excellentBaloonCounter++ % 3 == 0) {
+				mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "Woohoo!");
+				SoundController.Voice(SoundController.VOICE_EXCELLENT);
+			}
 		}
 	}
 

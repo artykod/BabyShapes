@@ -100,12 +100,18 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 	private Color currentColor = Color.Unknown;
 	private FaceAnimation currentFaceAnimation = FaceAnimation.NoFace;
 	private VisualMode currentVisualMode = VisualMode.EmptySlot;
+	private float onClickTimestamp = 0f;
 
 	public delegate void OnShapeClick(Shape shape);
 	public event OnShapeClick OnClick = null;
 
 	public delegate void OnShapeDrag(Shape shape, Vector2 delta);
 	public event OnShapeDrag OnDrag = null;
+
+	public float OnClickCooldown {
+		get;
+		set;
+	}
 
 	public Type CurrentShape {
 		get {
@@ -269,6 +275,10 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 		}
 	}
 
+	public void ShowHint(UIDialogHintBaloon.Direction direction, string text) {
+		UIDialogHintBaloon.ShowWithText(transform, direction, text);
+	}
+
 	private IEnumerator ScaleIn(System.Action actionAfter) {
 		transform.localScale = Vector3.zero;
 
@@ -321,7 +331,8 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 	}
 
 	void IPointerClickHandler.OnPointerClick(PointerEventData eventData) {
-		if (OnClick != null) {
+		if ((Time.time - onClickTimestamp) > OnClickCooldown && OnClick != null) {
+			onClickTimestamp = Time.time;
 			OnClick(this);
 		}
 	}
@@ -348,6 +359,9 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 				OnDrag -= (OnShapeDrag)d;
 			}
 		}
+
+		onClickTimestamp = 0f;
+		OnClickCooldown = 0f;
 
 		if (animated) {
 			CurrentFaceAnimation = FaceAnimation.Ok;

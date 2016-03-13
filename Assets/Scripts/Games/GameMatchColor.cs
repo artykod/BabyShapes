@@ -30,6 +30,8 @@ public class GameMatchColor : GameBase {
 		mainShape = GenerateRandomShape(droppedShapeRoot);
 		mainShape.CurrentVisualMode = Shape.VisualMode.ShapeWithShadow;
 		mainShape.CurrentFaceAnimation = Shape.FaceAnimation.Idle;
+		mainShape.OnClick += OnMainShapeClick;
+		mainShape.OnClickCooldown = 2f;
 
 		var matches = new HashSet<int>();
 		while (matches.Count < SHAPES_MATCHES_LIMIT) {
@@ -48,6 +50,12 @@ public class GameMatchColor : GameBase {
 		}
 
 		StartCoroutine(TurnOffGrid());
+
+		InvokeStartHintIfNotShowed(() => OnMainShapeClick(mainShape));
+	}
+
+	private void OnMainShapeClick(Shape shape) {
+		shape.ShowHint(UIDialogHintBaloon.Direction.RightBottom, "Match the color!");
 	}
 
 	private IEnumerator TurnOffGrid() {

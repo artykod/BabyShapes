@@ -6,6 +6,8 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 		get;
 	}
 
+	private bool startHintShowed = false;
+
 	private void Awake() {
 		var canvas = GetComponent<Canvas>();
 		canvas.renderMode = RenderMode.ScreenSpaceCamera;
@@ -73,6 +75,13 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 		StartCoroutine(InvokeAfterDelayRoutine(delay, action));
 	}
 
+	protected void InvokeStartHintIfNotShowed(System.Action action) {
+		if (!startHintShowed) {
+			action();
+			startHintShowed = true;
+		}
+	}
+
 	private IEnumerator InvokeAfterDelayRoutine(float delay, System.Action action) {
 		if (action != null) {
 			yield return new WaitForSeconds(delay);
@@ -87,10 +96,12 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 	protected abstract void GameUnload();
 
 	void GameController.IGame.OnStart() {
+		startHintShowed = false;
 		GameStart();
 	}
 
 	void GameController.IGame.OnStop() {
 		GameUnload();
+		UIDialogHintBaloon.ForceHideAll();
 	}
 }

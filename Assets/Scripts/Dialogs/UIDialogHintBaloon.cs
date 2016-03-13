@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
-public class UIHintBaloon : UIDialogGeneric<UIHintBaloon> {
+public class UIDialogHintBaloon : UIDialogGeneric<UIDialogHintBaloon> {
 	public enum Direction {
 		LeftTop,
 		RightTop,
@@ -28,17 +30,40 @@ public class UIHintBaloon : UIDialogGeneric<UIHintBaloon> {
 
 	private Direction currentDirection = Direction.LeftBottom;
 
-	public static void ShowWithText(Transform parent, Direction direction, string text) {
+	private static HashSet<UIDialogHintBaloon> allBaloons = new HashSet<UIDialogHintBaloon>();
+
+	public static UIDialogHintBaloon ShowWithText(Transform parent, Direction direction, string text) {
 		var baloon = Show(false);
 		baloon.currentDirection = direction;
 		baloon.hintText.text = text;
 		baloon.baloonContent.SetParent(parent, false);
 		baloon.baloonContent.localPosition = Vector3.zero;
+		return baloon;
+	}
+
+	public static void ForceHideAll() {
+		var copyAll = allBaloons.ToArray();
+		foreach (var baloon in copyAll) {
+			Destroy(baloon.gameObject);
+		}
 	}
 
 	protected override void Awake() {
 		base.Awake();
 		baloonContent.localScale = Vector3.zero;
+
+		allBaloons.Add(this);
+	}
+
+	protected override void OnDestroy() {
+		base.OnDestroy();
+
+		if (baloonContent != null) {
+			Destroy(baloonContent.gameObject);
+			baloonContent = null;
+		}
+
+		allBaloons.Remove(this);
 	}
 
 	private IEnumerator Start() {
@@ -82,8 +107,5 @@ public class UIHintBaloon : UIDialogGeneric<UIHintBaloon> {
 		}
 
 		Destroy(gameObject);
-		if (baloonContent != null) {
-			Destroy(baloonContent.gameObject);
-		}
 	}
 }

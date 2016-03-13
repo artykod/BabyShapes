@@ -112,7 +112,7 @@ public class GameFallShapes : GameBase {
 	}
 
 	private void OnMainShapeClick(Shape shape) {
-		shape.ShowHint(UIDialogHintBaloon.Direction.LeftTop, "match_shape");
+		shape.ShowHint(UIDialogHintBaloon.Direction.LeftTop, "match_shape_color");
 	}
 
 	protected override void GameUpdate() {

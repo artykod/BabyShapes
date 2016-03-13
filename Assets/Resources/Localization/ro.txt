@@ -20,5 +20,6 @@
 	"more_games":"Jocurile noastre!",
 	"hold_tap":"Tine apasat 3 sec.",
 	"match_shape":"Match\nthe shape!",
-	"match_color":"Match\nthe color!"
+	"match_color":"Match\nthe color!",
+	"match_shape_color":"Catch\nsame shapes!"
 }

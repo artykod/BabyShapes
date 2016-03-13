@@ -20,5 +20,6 @@
 	"more_games":"More games!",
 	"hold_tap":"Hold 3 sec.",
 	"match_shape":"Match\nthe shape!",
-	"match_color":"Match\nthe color!"
+	"match_color":"Match\nthe color!",
+	"match_shape_color":"Catch\nsame shapes!"
 }

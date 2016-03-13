@@ -173,6 +173,7 @@ GameObject:
   - 222: {fileID: 22209992}
   - 114: {fileID: 11427184}
   - 114: {fileID: 11441722}
+  - 114: {fileID: 11401418}
   m_Layer: 5
   m_Name: hint
   m_TagString: Untagged
@@ -211,6 +212,7 @@ GameObject:
   - 222: {fileID: 22208350}
   - 114: {fileID: 11457718}
   - 114: {fileID: 11487152}
+  - 114: {fileID: 11456988}
   m_Layer: 5
   m_Name: hint
   m_TagString: Untagged
@@ -279,6 +281,7 @@ GameObject:
   - 224: {fileID: 22493898}
   - 222: {fileID: 22259876}
   - 114: {fileID: 11466464}
+  - 114: {fileID: 11465658}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -296,6 +299,7 @@ GameObject:
   - 224: {fileID: 22416050}
   - 222: {fileID: 22249594}
   - 114: {fileID: 11427278}
+  - 114: {fileID: 11410300}
   m_Layer: 5
   m_Name: donate_text
   m_TagString: Untagged
@@ -313,6 +317,7 @@ GameObject:
   - 224: {fileID: 22426446}
   - 222: {fileID: 22236512}
   - 114: {fileID: 11434066}
+  - 114: {fileID: 11426006}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -565,6 +570,7 @@ GameObject:
   - 222: {fileID: 22256422}
   - 114: {fileID: 11466392}
   - 114: {fileID: 11410288}
+  - 114: {fileID: 11457510}
   m_Layer: 5
   m_Name: hint
   m_TagString: Untagged
@@ -789,6 +795,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11401418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be9491d4a6904504fbc810e94ce0141e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationKey: in_app_3
 --- !u!114 &11401508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -987,6 +1005,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &11410300
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be9491d4a6904504fbc810e94ce0141e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationKey: parents_thanks_text
 --- !u!114 &11413192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1196,6 +1226,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogContentRoot: {fileID: 22455286}
+--- !u!114 &11426006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be9491d4a6904504fbc810e94ce0141e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationKey: more_games
 --- !u!114 &11426944
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1705,6 +1747,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   language: 1
+--- !u!114 &11456988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 130658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be9491d4a6904504fbc810e94ce0141e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationKey: in_app_1
 --- !u!114 &11457320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1750,6 +1804,18 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 0
+--- !u!114 &11457510
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be9491d4a6904504fbc810e94ce0141e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationKey: in_app_2
 --- !u!114 &11457718
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2042,6 +2108,18 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 0
+--- !u!114 &11465658
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be9491d4a6904504fbc810e94ce0141e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationKey: rate_us
 --- !u!114 &11465938
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -6,14 +6,22 @@ public class UILocalizedText : MonoBehaviour {
 	[SerializeField]
 	private string localizationKey = "";
 
-	private Text text = null;
+	public System.Action<UILocalizedText> OnRefresh = null;
+
+	public Text SelfText {
+		get;
+		private set;
+	}
 
 	public void Refresh() {
-		text.text = LanguageController.Localize(localizationKey);
+		SelfText.text = LanguageController.Localize(localizationKey);
+		if (OnRefresh != null) {
+			OnRefresh(this);
+		}
 	}
 
 	private void Awake() {
-		text = GetComponent<Text>();
+		SelfText = GetComponent<Text>();
 		Refresh();
 	}
 }

@@ -264,6 +264,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 22422630}
   - 114: {fileID: 11433550}
+  - 114: {fileID: 11499088}
   m_Layer: 5
   m_Name: product_1
   m_TagString: Untagged
@@ -587,6 +588,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 22469394}
   - 114: {fileID: 11422312}
+  - 114: {fileID: 11430256}
   m_Layer: 5
   m_Name: product_2
   m_TagString: Untagged
@@ -743,6 +745,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 22474268}
   - 114: {fileID: 11409696}
+  - 114: {fileID: 11401956}
   m_Layer: 5
   m_Name: product_3
   m_TagString: Untagged
@@ -834,6 +837,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11401956
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 192442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a3dd4edb008e5b4ba78b932101d8ce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  product: 3
+  price: $4.99
+  titleText: {fileID: 11401418}
 --- !u!114 &11402886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1319,6 +1336,20 @@ MonoBehaviour:
   m_Text: 'Thank you for staying with us!
 
     To remove ads and support our team select an option below:'
+--- !u!114 &11430256
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a3dd4edb008e5b4ba78b932101d8ce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  product: 2
+  price: $2.99
+  titleText: {fileID: 11457510}
 --- !u!114 &11430414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2872,6 +2903,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 0
+--- !u!114 &11499088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 138070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a3dd4edb008e5b4ba78b932101d8ce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  product: 1
+  price: $0.99
+  titleText: {fileID: 11456988}
 --- !u!114 &11499644
 MonoBehaviour:
   m_ObjectHideFlags: 1

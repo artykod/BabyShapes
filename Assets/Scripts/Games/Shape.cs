@@ -276,7 +276,7 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 	}
 
 	public void ShowHint(UIDialogHintBaloon.Direction direction, string text) {
-		UIDialogHintBaloon.ShowWithText(transform, direction, text);
+		UIDialogHintBaloon.ShowWithText(transform, direction, LanguageController.Localize(text));
 	}
 
 	private IEnumerator ScaleIn(System.Action actionAfter) {

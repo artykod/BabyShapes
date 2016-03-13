@@ -55,7 +55,7 @@ public class GameMatchColor : GameBase {
 	}
 
 	private void OnMainShapeClick(Shape shape) {
-		shape.ShowHint(UIDialogHintBaloon.Direction.RightBottom, "Match the color!");
+		shape.ShowHint(UIDialogHintBaloon.Direction.RightBottom, "match_color");
 	}
 
 	private IEnumerator TurnOffGrid() {

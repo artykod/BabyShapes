@@ -109,7 +109,7 @@ public class GameFallShapes : GameBase {
 	}
 
 	private void OnMainShapeClick(Shape shape) {
-		shape.ShowHint(UIDialogHintBaloon.Direction.LeftTop, "Match the shape!");
+		shape.ShowHint(UIDialogHintBaloon.Direction.LeftTop, "match_shape");
 	}
 
 	protected override void GameUpdate() {
@@ -156,7 +156,7 @@ public class GameFallShapes : GameBase {
 			InvokeAfterDelay(0.5f, GameEnd);
 		} else {
 			if (excellentBaloonCounter++ % 3 == 0) {
-				mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "Woohoo!");
+				mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "excellent");
 				SoundController.Voice(SoundController.VOICE_EXCELLENT);
 			}
 		}

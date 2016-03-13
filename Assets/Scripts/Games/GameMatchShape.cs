@@ -76,7 +76,7 @@ public class GameMatchShape : GameBase {
 	}
 
 	private void OnDroppedShapeClick(Shape shape) {
-		shape.ShowHint(UIDialogHintBaloon.Direction.RightTop, "Match the shape!");
+		shape.ShowHint(UIDialogHintBaloon.Direction.RightTop, "match_shape");
 	}
 
 	private void OnShapeDrag(Shape shape, Vector2 delta) {

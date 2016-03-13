@@ -8,8 +8,12 @@ public class UILocalizedText : MonoBehaviour {
 
 	private Text text = null;
 
+	public void Refresh() {
+		text.text = LanguageController.Localize(localizationKey);
+	}
+
 	private void Awake() {
 		text = GetComponent<Text>();
-		text.text = LanguageController.Localize(localizationKey);
+		Refresh();
 	}
 }

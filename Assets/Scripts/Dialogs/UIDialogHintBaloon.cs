@@ -26,6 +26,8 @@ public class UIDialogHintBaloon : UIDialogGeneric<UIDialogHintBaloon> {
 	[SerializeField]
 	private AnimationCurve animationCurve = null;
 	[SerializeField]
+	private AnimationCurve animationCurveIdle = null;
+	[SerializeField]
 	private RectTransform baloonContent = null;
 
 	private Direction currentDirection = Direction.LeftBottom;
@@ -35,7 +37,7 @@ public class UIDialogHintBaloon : UIDialogGeneric<UIDialogHintBaloon> {
 	public static UIDialogHintBaloon ShowWithText(Transform parent, Direction direction, string text) {
 		var baloon = Show(false);
 		baloon.currentDirection = direction;
-		baloon.hintText.text = text;
+		baloon.hintText.text = text + "\n";
 		baloon.baloonContent.SetParent(parent, false);
 		baloon.baloonContent.localPosition = Vector3.zero;
 		return baloon;
@@ -91,11 +93,22 @@ public class UIDialogHintBaloon : UIDialogGeneric<UIDialogHintBaloon> {
 			yield return null;
 		}
 
+		time = 0f;
+		timeTotal = 1.5f;
+		while (time <= timeTotal) {
+			var t = time / timeTotal;
+			time += Time.deltaTime;
+
+			var scale = animationCurveIdle.Evaluate(t);
+			baloonContent.localScale = Vector3.Lerp(baloonContent.localScale, new Vector3(scale, scale, 1f), 0.5f);
+
+			yield return null;
+		}
+
 		baloonContent.localScale = Vector3.one;
 
-		yield return new WaitForSeconds(1f);
-
 		time = 0f;
+		timeTotal = 0.25f;
 		while (time <= timeTotal) {
 			var t = time / timeTotal;
 			time += Time.deltaTime;

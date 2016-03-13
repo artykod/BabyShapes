@@ -73,10 +73,6 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 	}
 
 	private void PlayMusic(string music) {
-		if (!IsSoundEnabled) {
-			return;
-		}
-
 		sourceMusic.clip = LoadAudio(music);
 		sourceMusic.loop = true;
 		sourceMusic.volume = 0.25f;

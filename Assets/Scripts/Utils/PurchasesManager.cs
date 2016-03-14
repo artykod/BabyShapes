@@ -39,6 +39,7 @@ public class PurchasesManager : AbstractSingletonBehaviour<PurchasesManager, Pur
 	}
 
 	private const string PREFS_SOMEONE_PURCHASE_DONE = "smprchdn";
+	private const string GOOGLE_PLAY_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArrKTdUTT5gx8A+2FkKpGibsCPnG0bvWU8hOnINvFeaRlgJkpfDf3Udf8ElsXgPYJjMWEu88rqkiJHbjWzgXgS9wE+ZQkwZDgSekD66z44LSqMQznxhan22fd0ln0qmjjNDbk0hdZtwaIke/C21Yh49bAYqqV3UhalOktY5/ZEyvoQsfDVLFPC2dUN6uByCMuneXJwWXheAAESSPBU6i4t53Ifdml5gTLS3GPWX9riBB4FkbLMprTlqAacGykdUS/S9HHJyapA8kpTRAkM+tJX8W/SO7xw6DaUj0Ir+Zp8L6AEkh0DTRzmWn8VlN/OuFqQdTJOmfNP4nX+Kw4X3KSuwIDAQAB";
 
 	private static bool isBillingSupported = false;
 	private static PurchaseInfo currentPurchase = null;
@@ -104,8 +105,14 @@ public class PurchasesManager : AbstractSingletonBehaviour<PurchasesManager, Pur
 		}
 
 		OpenIAB.init(new Options {
+			checkInventoryTimeoutMs = Options.INVENTORY_CHECK_TIMEOUT_MS,
+			discoveryTimeoutMs = Options.DISCOVER_TIMEOUT_MS,
 			checkInventory = false,
 			verifyMode = OptionsVerifyMode.VERIFY_SKIP,
+			storeKeys = new Dictionary<string, string> {
+				{ OpenIAB_Android.STORE_GOOGLE, GOOGLE_PLAY_PUBLIC_KEY },
+			},
+			storeSearchStrategy = SearchStrategy.INSTALLER_THEN_BEST_FIT,
 		});
 #endif
 	}

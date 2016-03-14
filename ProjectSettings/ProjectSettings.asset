@@ -168,8 +168,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 2
   androidSplashScreen: {fileID: 2800000, guid: 139fb28839b054e4190f6d221129a7ee, type: 3}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: G:/projects/oriplay/BabyShapes/user.keystore
+  AndroidKeyaliasName: user
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   androidEnableBanner: 1

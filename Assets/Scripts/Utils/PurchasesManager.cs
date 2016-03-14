@@ -92,8 +92,7 @@ public class PurchasesManager : AbstractSingletonBehaviour<PurchasesManager, Pur
         OpenIABEventManager.transactionRestoredEvent += OnTransactionRestored;
         OpenIABEventManager.restoreSucceededEvent += OnRestoreSucceeded;
         OpenIABEventManager.restoreFailedEvent += OnRestoreFailed;
-
-		//for (int i = 0; i < skus.Length; i++) {
+		
 		foreach (var i in skus) {
 			var sku = i.Value;
 			Debug.Log("Map sku: " + sku);

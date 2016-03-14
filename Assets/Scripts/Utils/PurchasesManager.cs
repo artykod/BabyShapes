@@ -63,6 +63,8 @@ public class PurchasesManager : AbstractSingletonBehaviour<PurchasesManager, Pur
 	private void Awake() {
 #if (UNITY_IOS || UNITY_METRO || UNITY_ANDROID) && !UNITY_EDITOR
 
+		new GameObject("OpenIABEventManager").AddComponent<OpenIABEventManager>();
+
 #if UNITY_METRO
 		//OpenIAB_WP8.IsTestEnabled = DebugSettings.IsDebugEnabled;
 #endif
@@ -98,6 +100,8 @@ public class PurchasesManager : AbstractSingletonBehaviour<PurchasesManager, Pur
 			Debug.Log("Map sku: " + sku);
 #if UNITY_IOS
 			OpenIAB.mapSku(sku, OpenIAB_iOS.STORE, sku);
+#elif UNITY_ANDROID
+			OpenIAB.mapSku(sku, OpenIAB_Android.STORE_GOOGLE, sku);
 #elif UNITY_METRO
 			OpenIAB.mapSku(sku, OpenIAB_WP8.STORE, sku);
 #endif

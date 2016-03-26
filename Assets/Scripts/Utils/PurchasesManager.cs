@@ -108,14 +108,17 @@ public class PurchasesManager : AbstractSingletonBehaviour<PurchasesManager, Pur
 		}
 
 		OpenIAB.init(new Options {
-			checkInventoryTimeoutMs = Options.INVENTORY_CHECK_TIMEOUT_MS,
-			discoveryTimeoutMs = Options.DISCOVER_TIMEOUT_MS,
-			checkInventory = false,
-			verifyMode = OptionsVerifyMode.VERIFY_SKIP,
+			availableStoreNames = new string[] {
+				OpenIAB_Android.STORE_GOOGLE
+			},
 			storeKeys = new Dictionary<string, string> {
 				{ OpenIAB_Android.STORE_GOOGLE, GOOGLE_PLAY_PUBLIC_KEY },
 			},
 			storeSearchStrategy = SearchStrategy.INSTALLER_THEN_BEST_FIT,
+			checkInventoryTimeoutMs = Options.INVENTORY_CHECK_TIMEOUT_MS,
+			discoveryTimeoutMs = Options.DISCOVER_TIMEOUT_MS,
+			checkInventory = false,
+			verifyMode = OptionsVerifyMode.VERIFY_SKIP,
 		});
 #endif
 	}
@@ -158,6 +161,7 @@ public class PurchasesManager : AbstractSingletonBehaviour<PurchasesManager, Pur
 
 #if UNITY_IOS || UNITY_METRO || UNITY_ANDROID
 		try {
+			Debug.Log("PURCHASE SKU " + sku);
 			OpenIAB.purchaseProduct(sku);
 		} catch {
 			if (currentPurchase != null) {
@@ -251,15 +255,11 @@ public class PurchasesManager : AbstractSingletonBehaviour<PurchasesManager, Pur
 
 	private void OnRestoreSucceeded() {
 		Debug.Log("Transactions restored successfully");
-#if UNITY_IOS || UNITY_WSA || UNITY_ANDROID
-		//NativeDialog.Show("Purchases restored successfully!", "");
-#endif
+		PlatformDialog.Show("Great", "Purchases restored successfully!");
 	}
 
 	private void OnRestoreFailed(string error) {
 		Debug.Log("Transaction restore failed: " + error);
-#if UNITY_IOS || UNITY_WSA || UNITY_ANDROID
-		//NativeDialog.Show("Purchases restoring failed.", "");
-#endif
+		PlatformDialog.Show("Sorry", "Purchases restoring failed.");
 	}
 }

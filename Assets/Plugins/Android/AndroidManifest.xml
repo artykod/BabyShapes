@@ -17,33 +17,10 @@
           <action android:name="com.amazon.inapp.purchasing.NOTIFY" android:permission="com.amazon.inapp.purchasing.Permission.NOTIFY" />
       </intent-filter>
     </receiver>
-    <!--Fortumo start-->
-    <receiver android:name="mp.MpSMSReceiver">
-      <intent-filter>
-        <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-      </intent-filter>
-    </receiver>
-    <service android:name="mp.MpService" />
-    <service android:name="mp.StatusUpdateService" />
-    <activity android:name="mp.MpActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-    <!--Fortumo end-->
   </application>
   <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <!--Google Play-->
   <uses-permission android:name="com.android.vending.BILLING" />
-  <uses-permission android:name="android.permission.WAKE_LOCK" />
-  <uses-permission android:name="android.permission.VIBRATE" />
-  <uses-permission android:name="android.permission.GET_TASKS" />
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-  <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
   <!--Open Store-->
   <uses-permission android:name="org.onepf.openiab.permission.BILLING" />
-  <!--Amazon requires no permissions -->
-  <!--Samsung Apps-->
-  <uses-permission android:name="com.sec.android.iap.permission.BILLING" />
-  <!--Nokia-->
-  <uses-permission android:name="com.nokia.payment.BILLING"/>
-  <!--SlideME-->
-  <uses-permission android:name="com.slideme.sam.manager.inapp.permission.BILLING" />
 </manifest>

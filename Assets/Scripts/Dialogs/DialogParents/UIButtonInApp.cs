@@ -20,10 +20,10 @@ public class UIButtonInApp : UIButton {
 	}
 
 	private void ShowThanks() {
-		Debug.Log("TODO show thanks purchase dialog");
+		PlatformDialog.Show("Great!", "Thanks for your support!");
 	}
 
 	private void ShowError() {
-		Debug.Log("TODO show failed purchase dialog");
+		PlatformDialog.Show("Sorry", "Error happened. Please try later.");
 	}
 }

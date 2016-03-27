@@ -21,7 +21,7 @@ public class GameMatchShape : GameBase {
 	private Shape lastMatchedShape = null;
 
 	protected override void GameLoad() {
-		
+
 	}
 
 	protected override void GameStart() {
@@ -40,12 +40,34 @@ public class GameMatchShape : GameBase {
 
 		for (int i = 0; i < SHAPES_COUNT; i++) {
 			var shape = ShapesPool.Instance.GetShape(types[i], colors[i], Shape.VisualMode.EmptySlot, shapesForMatchRoot);
+			shape.OnClick += OnEmptyShapeClick;
 			shapes.AddLast(shape);
 		}
 
 		DropNewShape();
-		
+
 		InvokeStartHintIfNotShowed(() => OnDroppedShapeClick(droppedShape));
+	}
+
+	protected override void GameUpdate() {
+		if (droppedShape != null) {
+			foreach (var shape in shapes) {
+				var a = shape.transform.position;
+				var b = droppedShape.transform.position;
+				a.z = b.z = 0f;
+
+				if (Vector3.Distance(a, b) < 0.8f && CheckMatchWithShape(shape)) {
+					break;
+				}
+			}
+		}
+	}
+
+	protected override void GameUnload() {
+		ShapesPool.Instance.ReturnAllShapes();
+		shapes.Clear();
+		droppedShape = null;
+		lastMatchedShape = null;
 	}
 
 	private void DropNewShape() {
@@ -63,11 +85,11 @@ public class GameMatchShape : GameBase {
 
 		if (emptyShapes.Count > 0) {
 			droppedShape = GenerateSameShape(emptyShapes[Random.Range(0, emptyShapes.Count)], droppedShapeRoot);
-			droppedShape.OnDrag += OnShapeDrag;
 			droppedShape.CurrentVisualMode = Shape.VisualMode.ShapeWithShadow;
 			droppedShape.CurrentFaceAnimation = Shape.FaceAnimation.Idle;
-			droppedShape.SpeakShapeType();
+			droppedShape.OnDrag += OnShapeDrag;
 			droppedShape.OnClick += OnDroppedShapeClick;
+			droppedShape.SpeakShapeType();
 		} else {
 			SoundController.Sound(SoundController.SOUND_WIN);
 
@@ -89,6 +111,13 @@ public class GameMatchShape : GameBase {
 		shape.ShowHint(UIDialogHintBaloon.Direction.RightTop, "match_shape");
 	}
 
+	private void OnEmptyShapeClick(Shape shape) {
+		if (!CheckMatchWithShape(shape) && droppedShape != null) {
+			droppedShape.CurrentFaceAnimation = Shape.FaceAnimation.Mad;
+			SoundController.Sound(SoundController.SOUND_INCORRECT);
+		}
+	}
+
 	private void OnShapeDrag(Shape shape, Vector2 delta) {
 		var worldPointer = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		var selfPosition = shape.transform.position;
@@ -97,29 +126,17 @@ public class GameMatchShape : GameBase {
 		shape.transform.position = selfPosition;
 	}
 
-	protected override void GameUpdate() {
-		foreach (var shape in shapes) {
-			if (shape.CurrentVisualMode == Shape.VisualMode.EmptySlot && shape.CurrentShape == droppedShape.CurrentShape) {
-				var a = shape.transform.position;
-				var b = droppedShape.transform.position;
-				a.z = b.z = 0f;
+	private bool CheckMatchWithShape(Shape shape) {
+		if (shape.CurrentVisualMode == Shape.VisualMode.EmptySlot && shape.CurrentShape == droppedShape.CurrentShape) {
+			shape.CurrentVisualMode = Shape.VisualMode.ShapeInSlot;
+			shape.CurrentFaceAnimation = Shape.FaceAnimation.Ok;
+			lastMatchedShape = shape;
+			DropNewShape();
+			SoundController.Sound(SoundController.SOUND_CORRECT);
 
-				if (Vector3.Distance(a, b) < 0.8f) {
-					shape.CurrentVisualMode = Shape.VisualMode.ShapeInSlot;
-					shape.CurrentFaceAnimation = Shape.FaceAnimation.Ok;
-					lastMatchedShape = shape;
-					DropNewShape();
-					SoundController.Sound(SoundController.SOUND_CORRECT);
-					break;
-				}
-			}
+			return true;
 		}
-	}
 
-	protected override void GameUnload() {
-		ShapesPool.Instance.ReturnAllShapes();
-		shapes.Clear();
-		droppedShape = null;
-		lastMatchedShape = null;
+		return false;
 	}
 }

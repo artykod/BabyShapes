@@ -18,8 +18,8 @@ public class GameController : AbstractSingletonBehaviour<GameController, GameCon
 		Previous,
 	}
 
-	//private const GameTypes INITIAL_GAME = GameTypes.MatchShape;
-	private const GameTypes INITIAL_GAME = GameTypes.FallShapes;
+	private const GameTypes INITIAL_GAME = GameTypes.MatchShape;
+	//private const GameTypes INITIAL_GAME = GameTypes.FallShapes;
 
 	private GameTypes[] gamesOrder = new GameTypes[] {
 		GameTypes.MatchShape,

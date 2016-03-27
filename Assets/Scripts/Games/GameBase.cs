@@ -77,7 +77,7 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 
 	protected bool NeedShowTutorial {
 		get {
-			return /*(GameLoadsCountTotal - 1) % 3 == 0 && */tutorialCounter < TutorialShowMaxCount;
+			return (GameLoadsCountTotal - 1) % 3 == 0 && tutorialCounter < TutorialShowMaxCount;
 		}
 	}
 

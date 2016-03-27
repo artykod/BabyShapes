@@ -14,12 +14,14 @@ public class GameFallShapes : GameBase {
 		private GameFallShapes game = null;
 		private Shape shape = null;
 		private Vector3 velocity = Vector3.zero;
+		private bool isSameShape = false;
 
 		public FallShape(GameFallShapes game) {
 			this.game = game;
 
 			var gameTransform = game.fieldRect;
-			shape = Random.value > 0.5f ? game.GenerateRandomShape(gameTransform) : game.GenerateSameShape(game.mainShape, gameTransform);
+			isSameShape = Random.value > 0.5f;
+			shape = isSameShape ? game.GenerateSameShape(game.mainShape, gameTransform) : game.GenerateRandomShape(gameTransform);
 			velocity = new Vector3(Random.Range(-3f, 3f), -2.5f);
 
 			shape.transform.position = new Vector3(Random.Range(game.worldFieldRect.xMin, game.worldFieldRect.xMax), game.worldFieldRect.yMax + 2f);
@@ -44,10 +46,18 @@ public class GameFallShapes : GameBase {
 			}
 			shape.transform.position = pos;
 
+			if (isSameShape && game.lastSameShape == null && pos.y < game.worldFieldRect.yMax - 2f) {
+				game.lastSameShape = shape;
+				game.TryShowTutorialAfterDelay(0.1f);
+			}
+
 			return pos.y < game.worldFieldRect.yMin - 2f;
 		}
 
 		public void Destroy() {
+			if (game.lastSameShape == shape) {
+				game.lastSameShape = null;
+			}
 			shape.OnClick -= OnShapeClick;
 			ShapesPool.Instance.ReturnShape(shape);
 			shape = null;
@@ -81,6 +91,13 @@ public class GameFallShapes : GameBase {
 	private int successClicks = 0;
 	private int hackComputeWorldRectSizeCounter = 4;
 	private int wrongBaloonCounter = 0;
+	private Shape lastSameShape = null;
+
+	protected override int TutorialShowMaxCount {
+		get {
+			return 4;
+		}
+	}
 
 	protected override void GameLoad() {
 		base.GameLoad();
@@ -143,6 +160,31 @@ public class GameFallShapes : GameBase {
 		mainShape = null;
 
 		ShapesPool.Instance.ReturnAllShapes();
+	}
+
+	protected override bool ShowTutorial() {
+		if (lastSameShape == null) {
+			return false;
+		}
+
+		if (base.ShowTutorial()) {
+			var tutorialSettings = new UITutorialHand.HandMovementSettings {
+				showTime = 0.5f,
+				startDelay = 0.15f,
+				moveTime = 0.25f,
+				start = lastSameShape.transform,
+				endDelay = 0.15f,
+				hideTime = 0.5f,
+				repeatCount = int.MaxValue,
+				repeatTimeout = 0.25f,
+			};
+
+			UITutorialHand.Play(tutorialSettings).OnClose += () => lastSameShape = null;
+
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private void RefreshFieldWorldRect() {

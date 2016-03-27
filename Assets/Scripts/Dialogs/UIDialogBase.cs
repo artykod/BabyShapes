@@ -8,6 +8,8 @@ public class UIDialogBase : MonoBehaviour {
 	private Vector3 endScale = Vector3.one;
 	private System.Action onScaleAnimationEndAction = null;
 
+	public System.Action OnClose = null;
+
 	public virtual void Show() {
 		if (dialogContentRoot != null) {
 			dialogContentRoot.localScale = Vector3.one * 5f;
@@ -16,11 +18,17 @@ public class UIDialogBase : MonoBehaviour {
 	}
 
 	public virtual void Close() {
+		if (OnClose != null) {
+			OnClose();
+		}
+
 		if (dialogContentRoot != null) {
 			canvasGroup = dialogContentRoot.GetComponent<CanvasGroup>();
 			dialogContentRoot.localScale = Vector3.one;
 			endScale = Vector3.one * 2f;
 			onScaleAnimationEndAction = () => Destroy(gameObject);
+		} else {
+			Destroy(gameObject);
 		}
 	}
 
@@ -33,7 +41,7 @@ public class UIDialogBase : MonoBehaviour {
 	}
 
 	protected virtual void OnDestroy() {
-
+		//
 	}
 
 	private void Update() {

@@ -7,6 +7,7 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 	
 	private bool startHintShowed = false;
 	private int gamesDoneCount = 0;
+	private int tutorialCounter = 0;
 
 	public abstract GameTypes GameType {
 		get;
@@ -65,6 +66,18 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 	protected int GamesDoneCount {
 		get {
 			return gamesDoneCount;
+		}
+	}
+
+	protected virtual int TutorialShowMaxCount {
+		get {
+			return 2;
+		}
+	}
+
+	protected bool NeedShowTutorial {
+		get {
+			return /*(GameLoadsCountTotal - 1) % 3 == 0 && */tutorialCounter < TutorialShowMaxCount;
 		}
 	}
 
@@ -143,6 +156,8 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 	protected virtual void GameLoad() {
 		gamesDoneCount = 0;
 		GameLoadsCountTotal++;
+		tutorialCounter = 0;
+		UITutorialHand.IsTutorialSkipped = false;
 	}
 	protected virtual void GameStart() {
 		// for override
@@ -153,9 +168,18 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 	protected virtual void GameUnload() {
 		UIDialogHintBaloon.ForceHideAll();
 	}
-
 	protected virtual void OnGameWin() {
 		// for override
+	}
+	protected virtual bool ShowTutorial() {
+		var result = NeedShowTutorial && !UITutorialHand.IsTutorialSkipped;
+		tutorialCounter++;
+		return result;
+	}
+
+	protected void TryShowTutorialAfterDelay(float delay) {
+		UITutorialHand.IsTutorialSkipped = false;
+		InvokeAfterDelay(delay, () => ShowTutorial());
 	}
 
 	protected void GameEnd() {
@@ -187,9 +211,7 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 
 	private void HandleGameWin() {
 		GameUnload();
-
 		OnGameWin();
-
 		GameController.Instance.StartNextGame(GameController.GamesNavigation.Next);
 	}
 
@@ -201,6 +223,7 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 	}
 
 	void GameController.IGame.OnStart() {
+		UITutorialHand.DestroyCurrent();
 		startHintShowed = false;
 		GameLoad();
 		GameStart();

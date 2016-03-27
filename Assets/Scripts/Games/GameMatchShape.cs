@@ -107,6 +107,36 @@ public class GameMatchShape : GameBase {
 		}
 	}
 
+	protected override bool ShowTutorial() {
+		if (base.ShowTutorial() && droppedShape != null) {
+			var targetShape = null as Shape;
+			foreach (var shape in shapes) {
+				if (shape.CurrentShape == droppedShape.CurrentShape) {
+					targetShape = shape;
+					break;
+				}
+			}
+
+			if (targetShape != null) {
+				UITutorialHand.Play(new UITutorialHand.HandMovementSettings {
+					showTime = 0.5f,
+					startDelay = 0.15f,
+					moveTime = 0.7f,
+					start = droppedShape.transform,
+					end = targetShape.transform,
+					endDelay = 0.15f,
+					hideTime = 0.5f,
+					repeatCount = int.MaxValue,
+					repeatTimeout = 0.25f,
+				});
+			}
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	private void DropNewShape() {
 		if (droppedShape != null) {
 			ShapesPool.Instance.ReturnShape(droppedShape, false);
@@ -142,6 +172,8 @@ public class GameMatchShape : GameBase {
 
 			GameEnd();
 		}
+
+		TryShowTutorialAfterDelay(0.5f);
 	}
 
 	private void OnDroppedShapeClick(Shape shape) {

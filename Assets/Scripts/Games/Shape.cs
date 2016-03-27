@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 using System.Collections;
 
-public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandler, IDragHandler {
+public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandler, IPointerDownHandler, IDragHandler {
 	public enum Type {
 		Unknown,
 		Polygon,
@@ -354,6 +354,17 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 		}
 	}
 
+	void IDragHandler.OnDrag(PointerEventData eventData) {
+		if (OnDrag != null) {
+			OnDrag(this, eventData.delta);
+		}
+	}
+
+	void IPointerDownHandler.OnPointerDown(PointerEventData eventData) {
+		UITutorialHand.IsTutorialSkipped = true;
+		UITutorialHand.CloseCurrent();
+	}
+
 	void ShapesPool.IPooledShape.OnGet(Transform newParent) {
 		transform.SetParent(newParent, false);
 		transform.localPosition = Vector3.zero;
@@ -385,12 +396,6 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 			StartCoroutine(ScaleOut(() => Deactivate(poolParent), animationDelay));
 		} else {
 			Deactivate(poolParent);
-		}
-	}
-
-	void IDragHandler.OnDrag(PointerEventData eventData) {
-		if (OnDrag != null) {
-			OnDrag(this, eventData.delta);
 		}
 	}
 }

@@ -1,25 +1,40 @@
 ﻿using UnityEngine;
 
 public abstract class UIDialogGeneric<T> : UIDialogBase where T : UIDialogBase {
-	private static T currentDialog = null;
+	public static T CurrentDialog {
+		get;
+		private set;
+	}
 
-	public static UIDialogBase ShowSingle(bool animated = true) {
-		if (currentDialog != null) {
-			Destroy(currentDialog.gameObject);
-			currentDialog = null;
-		}
-
+	public static T ShowSingle(bool animated = true) {
+		DestroyCurrent();
 		return Show(animated);
+	}
+
+	public static void DestroyCurrent() {
+		if (CurrentDialog != null) {
+			var current = CurrentDialog;
+			CurrentDialog = null;
+			Destroy(current.gameObject);
+		}
+	}
+
+	public static void CloseCurrent() {
+		if (CurrentDialog != null) {
+			var current = CurrentDialog;
+			CurrentDialog = null;
+			current.Close();
+		}
 	}
 
 	public static T Show(bool animated = true) {
 		var prefab = Resources.Load<T>("UI/" + typeof(T).Name);
 		if (prefab != null) {
-			currentDialog = Instantiate(prefab);
+			CurrentDialog = Instantiate(prefab);
 			if (animated) {
-				currentDialog.Show();
+				CurrentDialog.Show();
 			}
 		}
-		return currentDialog;
+		return CurrentDialog;
 	}
 }

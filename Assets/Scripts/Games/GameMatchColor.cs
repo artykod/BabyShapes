@@ -56,6 +56,8 @@ public class GameMatchColor : GameBase {
 		StartCoroutine(TurnOffGrid());
 
 		InvokeStartHintIfNotShowed(() => OnMainShapeClick(mainShape));
+
+		TryShowTutorialAfterDelay(0.5f);
 	}
 
 	protected override void GameUpdate() {
@@ -68,6 +70,44 @@ public class GameMatchColor : GameBase {
 		ShapesPool.Instance.ReturnAllShapes();
 		shapes.Clear();
 		mainShape = null;
+	}
+
+	protected override bool ShowTutorial() {
+		if (base.ShowTutorial()) {
+			var shapesForTutorial = new LinkedList<Shape>();
+			foreach (var shape in shapes) {
+				if (shape.CurrentColor == mainShape.CurrentColor) {
+					shapesForTutorial.AddLast(shape);
+				}
+			}
+
+			if (shapesForTutorial.Count > 0) {
+				ShowTutorialForShape(shapesForTutorial.First);
+			}
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private void ShowTutorialForShape(LinkedListNode<Shape> shapeNode) {
+		var tutorialSettings = new UITutorialHand.HandMovementSettings {
+			showTime = 0.5f,
+			startDelay = 0.15f,
+			moveTime = 0.25f,
+			start = shapeNode.Value.transform,
+			endDelay = 0.15f,
+			hideTime = 0.5f,
+			repeatCount = int.MaxValue,
+			repeatTimeout = 0.25f,
+		};
+		var nextShape = shapeNode.Next;
+		var tutorialHand = UITutorialHand.Play(tutorialSettings);
+
+		if (shapeNode.Next != null) {
+			tutorialHand.OnClose += () => ShowTutorialForShape(nextShape);
+		}
 	}
 
 	private void OnMainShapeClick(Shape shape) {

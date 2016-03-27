@@ -23,10 +23,12 @@ public class GameMatchColor : GameBase {
 	private LinkedList<Shape> shapes = new LinkedList<Shape>();
 
 	protected override void GameLoad() {
-		
+		base.GameLoad();
 	}
 
 	protected override void GameStart() {
+		base.GameStart();
+
 		mainShape = GenerateRandomShape(droppedShapeRoot);
 		mainShape.CurrentVisualMode = Shape.VisualMode.ShapeWithShadow;
 		mainShape.CurrentFaceAnimation = Shape.FaceAnimation.Idle;
@@ -54,6 +56,18 @@ public class GameMatchColor : GameBase {
 		StartCoroutine(TurnOffGrid());
 
 		InvokeStartHintIfNotShowed(() => OnMainShapeClick(mainShape));
+	}
+
+	protected override void GameUpdate() {
+		base.GameUpdate();
+	}
+
+	protected override void GameUnload() {
+		base.GameUnload();
+
+		ShapesPool.Instance.ReturnAllShapes();
+		shapes.Clear();
+		mainShape = null;
 	}
 
 	private void OnMainShapeClick(Shape shape) {
@@ -92,22 +106,12 @@ public class GameMatchColor : GameBase {
 					i.CurrentFaceAnimation = Shape.FaceAnimation.Happy;
 				}
 
-				InvokeAfterDelay(1f, GameEnd);
+				GameEnd();
 			}
 		} else {
 			shape.CurrentFaceAnimation = Shape.FaceAnimation.Mad;
 			SoundController.Sound(SoundController.SOUND_INCORRECT_2);
 			mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "where_is", SoundController.VOICE_WHERE_IS);
 		}
-	}
-
-	protected override void GameUpdate() {
-		//
-	}
-
-	protected override void GameUnload() {
-		ShapesPool.Instance.ReturnAllShapes();
-		shapes.Clear();
-		mainShape = null;
 	}
 }

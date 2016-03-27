@@ -79,6 +79,11 @@ public class EffectWin : MonoBehaviour {
 		}
 	}
 
+	public static void PlaySoundOnly() {
+		SoundController.Sound(SoundController.SOUND_WIN_KIDS);
+		SoundController.Sound(SoundController.SOUND_WIN_HANDS);
+	}
+
 	private void Play() {
 		StartCoroutine(PlayInternal());
 	}
@@ -89,8 +94,7 @@ public class EffectWin : MonoBehaviour {
 			i.Play();
 		}
 
-		SoundController.Sound(SoundController.SOUND_WIN_KIDS);
-		SoundController.Sound(SoundController.SOUND_WIN_HANDS);
+		PlaySoundOnly();
 
 		var anims = new LinkedList<IEnumerator>();
 		foreach (var i in baloons) {

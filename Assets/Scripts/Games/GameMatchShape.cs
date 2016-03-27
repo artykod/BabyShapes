@@ -9,7 +9,10 @@ public class GameMatchShape : GameBase {
 		}
 	}
 
-	private const int SHAPES_COUNT = 4;
+	private int EmptyShapesCount {
+		get;
+		set;
+	}
 
 	[SerializeField]
 	private RectTransform droppedShapeRoot = null;
@@ -31,21 +34,36 @@ public class GameMatchShape : GameBase {
 	private int shapesCurrentShapesColorIndex = -1;
 
 	protected override void GameLoad() {
+		base.GameLoad();
+
 		shapesCurrentShapesColorIndex = -1;
+
+		// [0..2] - 3 shapes
+		// [3..5] - 4 shapes
+		// [6..8] - 3 shapes
+		// etc.
+		EmptyShapesCount = (((GameLoadsCountTotal - 1) / 3) % 2 == 0) ? 3 : 4;
 	}
 
 	protected override void GameStart() {
+		base.GameStart();
+
 		shapesCurrentShapesColorIndex = (shapesCurrentShapesColorIndex + 1) % shapesColorsSequence.Length;
 
 		var typesSet = new HashSet<Shape.Type>();
-		while (typesSet.Count < SHAPES_COUNT) {
+		while (typesSet.Count < EmptyShapesCount) {
 			typesSet.Add(GenerateRandomEnum<Shape.Type>());
 		}
 		var types = typesSet.ToArray();
 
-		var shapesColor = shapesColorsSequence[shapesCurrentShapesColorIndex];
+		var colorsSet = new HashSet<Shape.Color>();
+		while (colorsSet.Count < EmptyShapesCount) {
+			colorsSet.Add(GenerateRandomEnum<Shape.Color>());
+		}
+		var colors = colorsSet.ToArray();
 
-		for (int i = 0; i < SHAPES_COUNT; i++) {
+		for (int i = 0; i < EmptyShapesCount; i++) {
+			var shapesColor = GamesDoneCount >= shapesColorsSequence.Length ? colors[i] : shapesColorsSequence[shapesCurrentShapesColorIndex];
 			var shape = ShapesPool.Instance.GetShape(types[i], shapesColor, Shape.VisualMode.EmptySlot, shapesForMatchRoot);
 			shape.OnClick += OnEmptyShapeClick;
 			shapes.AddLast(shape);
@@ -57,6 +75,8 @@ public class GameMatchShape : GameBase {
 	}
 
 	protected override void GameUpdate() {
+		base.GameUpdate();
+
 		if (droppedShape != null) {
 			foreach (var shape in shapes) {
 				var a = shape.transform.position;
@@ -71,6 +91,8 @@ public class GameMatchShape : GameBase {
 	}
 
 	protected override void GameUnload() {
+		base.GameUnload();
+
 		ShapesPool.Instance.ReturnAllShapes();
 		shapes.Clear();
 		droppedShape = null;
@@ -110,7 +132,7 @@ public class GameMatchShape : GameBase {
 				lastMatchedShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "excellent", SoundController.RandomVoiceExcellent);
 			}
 
-			InvokeAfterDelay(1f, GameEnd);
+			GameEnd();
 		}
 	}
 

@@ -55,4 +55,12 @@ public class GameCore : MonoBehaviour {
 
 		yield break;
 	}
+
+#if UNITY_EDITOR
+	[UnityEditor.MenuItem("Utils/Clear prefs")]
+#endif
+	private static void ClearUserPrefs() {
+		PlayerPrefs.DeleteAll();
+		PlayerPrefs.Save();
+	}
 }

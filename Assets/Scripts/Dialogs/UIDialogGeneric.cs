@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class UIDialogGeneric<T> : UIDialogBase where T : UIDialogBase {
+public abstract class UIDialogGeneric<T> : UIDialogBase where T : UIDialogBase {
 	private static T currentDialog = null;
 
 	public static UIDialogBase ShowSingle(bool animated = true) {

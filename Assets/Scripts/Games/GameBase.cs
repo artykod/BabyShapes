@@ -2,11 +2,71 @@
 using System.Collections;
 
 public abstract class GameBase : MonoBehaviour, GameController.IGame {
+	private const string PREFS_GAME_LOADS_COUNT = "gmldscnt";
+	private const string PREFS_GAME_WINS_COUNT = "gmwnscnt";
+	
+	private bool startHintShowed = false;
+	private int gamesDoneCount = 0;
+
 	public abstract GameTypes GameType {
 		get;
 	}
 
-	private bool startHintShowed = false;
+	protected string PrefsGameId {
+		get {
+			return GameType.ToString();
+		}
+	}
+
+	protected string PrefsKeyGameLoadsCount {
+		get {
+			return PREFS_GAME_LOADS_COUNT + PrefsGameId;
+		}
+	}
+
+	protected string PrefsKeyGameWinsCount {
+		get {
+			return PREFS_GAME_WINS_COUNT + PrefsGameId;
+		}
+	}
+
+	protected int GameLoadsCountTotal {
+		get {
+			return PlayerPrefs.GetInt(PrefsKeyGameLoadsCount, 0);
+		}
+		set {
+			PlayerPrefs.SetInt(PrefsKeyGameLoadsCount, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	protected int GameWinsCountTotal {
+		get {
+			return PlayerPrefs.GetInt(PrefsKeyGameWinsCount, 0);
+		}
+		set {
+			PlayerPrefs.SetInt(PrefsKeyGameWinsCount, value);
+			PlayerPrefs.Save();
+		}
+	}
+
+	protected virtual int GamesCountForApplause {
+		get {
+			return 3;
+		}
+	}
+
+	protected virtual int GamesCountForBaloons {
+		get {
+			return (GameWinsCountTotal % 2) == 0 ? 7 : 10;
+		}
+	}
+
+	protected int GamesDoneCount {
+		get {
+			return gamesDoneCount;
+		}
+	}
 
 	private void Awake() {
 		var canvas = GetComponent<Canvas>();
@@ -19,12 +79,6 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 
 	private void Update() {
 		GameUpdate();
-	}
-
-	protected void GameEnd() {
-		GameUnload();
-		UIDialogHintBaloon.ForceHideAll();
-		GameStart();
 	}
 
 	protected T GenerateRandomEnum<T>() where T : struct {
@@ -86,17 +140,58 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 		}
 	}
 
+	protected virtual void GameLoad() {
+		gamesDoneCount = 0;
+		GameLoadsCountTotal++;
+	}
+	protected virtual void GameStart() {
+		// for override
+	}
+	protected virtual void GameUpdate() {
+		// for override
+	}
+	protected virtual void GameUnload() {
+		UIDialogHintBaloon.ForceHideAll();
+	}
+
+	protected void GameEnd() {
+		gamesDoneCount++;
+
+		if (gamesDoneCount >= GamesCountForBaloons) {
+			EffectWin.PlayEffect();
+			InvokeAfterDelay(1.5f, () => SoundController.Voice(SoundController.VOICE_WELL_DONE));
+			InvokeAfterDelay(2.25f, StartNextGame);
+			GameWinsCountTotal++;
+		} else {
+			if (GamesCountForApplause > 0) {
+				var needApplause = (gamesDoneCount % GamesCountForApplause) == 0;
+				var isLastApplauseGame = (gamesDoneCount / GamesCountForApplause) == (GamesCountForBaloons / GamesCountForApplause);
+
+				if (needApplause && !isLastApplauseGame) {
+					EffectWin.PlaySoundOnly();
+				}
+			}
+
+			InvokeAfterDelay(1f, RestartCurrentGame);
+		}
+	}
+
+	private void RestartCurrentGame() {
+		GameUnload();
+		GameStart();
+	}
+
+	private void StartNextGame() {
+		GameUnload();
+		GameController.Instance.StartNextGame(GameController.GamesNavigation.Next);
+	}
+
 	private IEnumerator InvokeAfterDelayRoutine(float delay, System.Action action) {
 		if (action != null) {
 			yield return new WaitForSeconds(delay);
 			action();
 		}
 	}
-
-	protected abstract void GameLoad();
-	protected abstract void GameStart();
-	protected abstract void GameUpdate();
-	protected abstract void GameUnload();
 
 	void GameController.IGame.OnStart() {
 		startHintShowed = false;
@@ -106,6 +201,5 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 
 	void GameController.IGame.OnStop() {
 		GameUnload();
-		UIDialogHintBaloon.ForceHideAll();
 	}
 }

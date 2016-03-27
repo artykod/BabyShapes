@@ -46,12 +46,13 @@ public class GameCore : MonoBehaviour {
 	}
 
 	private IEnumerator Start() {
-		var dialog = UIDialogHello.ShowSingle();
+		/*var dialog = UIDialogHello.ShowSingle();
 		SoundController.Voice(SoundController.VOICE_HELLO);
-
 		yield return new WaitForSeconds(1.25f);
+		dialog.Close();*/
 
-		dialog.Close();
 		GameController.Instance.StartNextGame(GameController.GamesNavigation.Next);
+
+		yield break;
 	}
 }

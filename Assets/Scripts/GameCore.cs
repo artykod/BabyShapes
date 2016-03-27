@@ -51,6 +51,8 @@ public class GameCore : MonoBehaviour {
 		yield return new WaitForSeconds(1.25f);
 		dialog.Close();*/
 
+		yield return new WaitForEndOfFrame();
+
 		GameController.Instance.StartNextGame(GameController.GamesNavigation.Next);
 
 		yield break;

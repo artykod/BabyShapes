@@ -39,9 +39,12 @@ public class GameMatchColor : GameBase {
 
 		for (int i = 0; i < SHAPES_COUNT; i++) {
 			var shape = GenerateRandomShape(shapesForMatchRoot);
+			var makeSameShape = matches.Contains(i);
+
 			shape.CurrentVisualMode = Shape.VisualMode.ShapeWithShadow;
 			shape.CurrentFaceAnimation = Shape.FaceAnimation.Idle;
-			shape.CurrentColor = matches.Contains(i) ? mainShape.CurrentColor : GenerateRandomEnumExclude(mainShape.CurrentColor);
+			shape.CurrentColor = makeSameShape ? mainShape.CurrentColor : GenerateRandomEnumExclude(mainShape.CurrentColor);
+			shape.CurrentShape = makeSameShape ? mainShape.CurrentShape : GenerateRandomEnumExclude(mainShape.CurrentShape);
 
 			shapes.AddLast(shape);
 

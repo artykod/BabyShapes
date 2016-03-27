@@ -33,6 +33,7 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 		NoFace,
 		Idle,
 		Happy,
+		Happy2,
 		Mad,
 		Ok,
 	}
@@ -77,9 +78,12 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 
 	private const string FACE_ANIM_TRIGGER_NO_FACE = "empty";
 	private const string FACE_ANIM_TRIGGER_HAPPY = "happy";
+	private const string FACE_ANIM_TRIGGER_HAPPY_2 = "happy_2";
 	private const string FACE_ANIM_TRIGGER_IDLE = "idle";
 	private const string FACE_ANIM_TRIGGER_MAD = "mad";
 	private const string FACE_ANIM_TRIGGER_OK = "ok";
+
+	private const float FACE_ANIMATION_CHANGE_TIMEOUT = 5f;
 
 	[SerializeField]
 	private ShapesSprites sprites = null;
@@ -101,6 +105,7 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 	private FaceAnimation currentFaceAnimation = FaceAnimation.NoFace;
 	private VisualMode currentVisualMode = VisualMode.EmptySlot;
 	private float onClickTimestamp = 0f;
+	private float animationChangeTimer = 0f;
 
 	public delegate void OnShapeClick(Shape shape);
 	public event OnShapeClick OnClick = null;
@@ -197,6 +202,9 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 			case FaceAnimation.Happy:
 				trigger = FACE_ANIM_TRIGGER_HAPPY;
 				break;
+			case FaceAnimation.Happy2:
+				trigger = FACE_ANIM_TRIGGER_HAPPY_2;
+				break;
 			case FaceAnimation.Mad:
 				trigger = FACE_ANIM_TRIGGER_MAD;
 				break;
@@ -206,6 +214,8 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 			}
 
 			face.SetTrigger(trigger);
+
+			animationChangeTimer = Random.value * FACE_ANIMATION_CHANGE_TIMEOUT * 0.5f;
 		}
 	}
 
@@ -277,6 +287,13 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 
 	public void ShowHint(UIDialogHintBaloon.Direction direction, string text, string voice = null) {
 		UIDialogHintBaloon.ShowWithText(transform, direction, LanguageController.Localize(text), voice);
+	}
+
+	private void Update() {
+		animationChangeTimer += Time.deltaTime;
+		if (CurrentVisualMode != VisualMode.EmptySlot && animationChangeTimer > FACE_ANIMATION_CHANGE_TIMEOUT) {
+			CurrentFaceAnimation = Random.value > 0.5f ? FaceAnimation.Happy2 : FaceAnimation.Happy;
+		}
 	}
 
 	private IEnumerator ScaleIn(System.Action actionAfter) {

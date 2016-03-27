@@ -19,27 +19,34 @@ public class GameMatchShape : GameBase {
 	private LinkedList<Shape> shapes = new LinkedList<Shape>();
 	private Shape droppedShape = null;
 	private Shape lastMatchedShape = null;
+	private Shape.Color[] shapesColorsSequence = new Shape.Color[] {
+		Shape.Color.Red,
+		Shape.Color.Orange,
+		Shape.Color.Yellow,
+		Shape.Color.Green,
+		Shape.Color.LightBlue,
+		Shape.Color.DarkBlue,
+		Shape.Color.Violet
+	};
+	private int shapesCurrentShapesColorIndex = -1;
 
 	protected override void GameLoad() {
-
+		shapesCurrentShapesColorIndex = -1;
 	}
 
 	protected override void GameStart() {
+		shapesCurrentShapesColorIndex = (shapesCurrentShapesColorIndex + 1) % shapesColorsSequence.Length;
+
 		var typesSet = new HashSet<Shape.Type>();
 		while (typesSet.Count < SHAPES_COUNT) {
 			typesSet.Add(GenerateRandomEnum<Shape.Type>());
 		}
-
-		var colorsSet = new HashSet<Shape.Color>();
-		while (colorsSet.Count < SHAPES_COUNT) {
-			colorsSet.Add(GenerateRandomEnum<Shape.Color>());
-		}
-
 		var types = typesSet.ToArray();
-		var colors = colorsSet.ToArray();
+
+		var shapesColor = shapesColorsSequence[shapesCurrentShapesColorIndex];
 
 		for (int i = 0; i < SHAPES_COUNT; i++) {
-			var shape = ShapesPool.Instance.GetShape(types[i], colors[i], Shape.VisualMode.EmptySlot, shapesForMatchRoot);
+			var shape = ShapesPool.Instance.GetShape(types[i], shapesColor, Shape.VisualMode.EmptySlot, shapesForMatchRoot);
 			shape.OnClick += OnEmptyShapeClick;
 			shapes.AddLast(shape);
 		}

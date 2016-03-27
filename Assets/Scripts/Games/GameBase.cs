@@ -15,8 +15,6 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 		Canvas.ForceUpdateCanvases();
 
 		ShapesPool.Instance.Initialize();
-
-		GameLoad();
 	}
 
 	private void Update() {
@@ -102,6 +100,7 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 
 	void GameController.IGame.OnStart() {
 		startHintShowed = false;
+		GameLoad();
 		GameStart();
 	}
 

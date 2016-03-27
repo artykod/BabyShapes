@@ -99,6 +99,14 @@ public class GameMatchShape : GameBase {
 		lastMatchedShape = null;
 	}
 
+	protected override void OnGameWin() {
+		base.OnGameWin();
+
+		if (((GameWinsCountTotal - 1) % 3) == 0) {
+			RateUsDialog.TryShowRateUsDialog();
+		}
+	}
+
 	private void DropNewShape() {
 		if (droppedShape != null) {
 			ShapesPool.Instance.ReturnShape(droppedShape, false);

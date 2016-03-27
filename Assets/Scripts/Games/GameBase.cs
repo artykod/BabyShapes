@@ -154,14 +154,18 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 		UIDialogHintBaloon.ForceHideAll();
 	}
 
+	protected virtual void OnGameWin() {
+		// for override
+	}
+
 	protected void GameEnd() {
 		gamesDoneCount++;
 
 		if (gamesDoneCount >= GamesCountForBaloons) {
 			EffectWin.PlayEffect();
-			InvokeAfterDelay(1.5f, () => SoundController.Voice(SoundController.VOICE_WELL_DONE));
-			InvokeAfterDelay(2.25f, StartNextGame);
 			GameWinsCountTotal++;
+			InvokeAfterDelay(1.5f, () => SoundController.Voice(SoundController.VOICE_WELL_DONE));
+			InvokeAfterDelay(2.25f, HandleGameWin);
 		} else {
 			if (GamesCountForApplause > 0) {
 				var needApplause = (gamesDoneCount % GamesCountForApplause) == 0;
@@ -181,8 +185,11 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 		GameStart();
 	}
 
-	private void StartNextGame() {
+	private void HandleGameWin() {
 		GameUnload();
+
+		OnGameWin();
+
 		GameController.Instance.StartNextGame(GameController.GamesNavigation.Next);
 	}
 

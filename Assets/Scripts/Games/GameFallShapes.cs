@@ -20,7 +20,7 @@ public class GameFallShapes : GameBase {
 			this.game = game;
 
 			var gameTransform = game.fieldRect;
-			isSameShape = Random.value > 0.5f;
+			isSameShape = true;//Random.value > 0.5f;
 			shape = isSameShape ? game.GenerateSameShape(game.mainShape, gameTransform) : game.GenerateRandomShape(gameTransform);
 			velocity = new Vector3(Random.Range(-3f, 3f), -2.5f);
 

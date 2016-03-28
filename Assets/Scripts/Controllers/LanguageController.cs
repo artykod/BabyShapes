@@ -31,10 +31,34 @@ public class LanguageController : AbstractSingletonBehaviour<LanguageController,
 		{ Language.Finnish, "fn" },
 	};
 
+	public Language SystemDefaultLanguage {
+		get {
+			var systemLanguage = Application.systemLanguage;
+			switch (systemLanguage) {
+			case SystemLanguage.English:
+				return Language.English;
+			case SystemLanguage.Russian:
+				return Language.Russian;
+			case SystemLanguage.Spanish:
+				return Language.Spanish;
+			case SystemLanguage.German:
+				return Language.German;
+			case SystemLanguage.Italian:
+				return Language.Italian;
+			case SystemLanguage.Romanian:
+				return Language.Romanian;
+			case SystemLanguage.Finnish:
+				return Language.Finnish;
+			default:
+				return Language.English;
+			}
+		}
+	}
+
 	public Language CurrentLanguage {
 		get {
 			if (currentLanguage == Language.Unknown) {
-				currentLanguage = (Language)PlayerPrefs.GetInt(PREFS_CURRENT_LANGUAGE, (int)Language.English);
+				currentLanguage = (Language)PlayerPrefs.GetInt(PREFS_CURRENT_LANGUAGE, (int)SystemDefaultLanguage);
 			}
 			return currentLanguage;
 		}
@@ -53,7 +77,7 @@ public class LanguageController : AbstractSingletonBehaviour<LanguageController,
 			if (currentLocalization == null) {
 				localizations.TryGetValue(currentLanguage, out currentLocalization);
 				if (currentLocalization == null) {
-					currentLocalization = localizations[Language.English];
+					currentLocalization = localizations[SystemDefaultLanguage];
 				}
 			}
 			return currentLocalization;

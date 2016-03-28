@@ -37,6 +37,8 @@ public class GameCore : MonoBehaviour {
 	}
 
 	private void Awake() {
+		AnalyticsTracker.GameAppStart();
+
 		Application.targetFrameRate = 60;
 		LanguageController.Instance.Initialize();
 		SoundController.Music(SoundController.MUSIC_STANDARD);
@@ -46,12 +48,10 @@ public class GameCore : MonoBehaviour {
 	}
 
 	private IEnumerator Start() {
-		/*var dialog = UIDialogHello.ShowSingle();
+		var dialog = UIDialogHello.ShowSingle();
 		SoundController.Voice(SoundController.VOICE_HELLO);
 		yield return new WaitForSeconds(1.25f);
-		dialog.Close();*/
-
-		yield return new WaitForEndOfFrame();
+		dialog.Close();
 
 		GameController.Instance.StartNextGame(GameController.GamesNavigation.Next);
 

@@ -44,8 +44,10 @@ public class UIButtonMoreGames : UIButton {
 
 	protected override void OnClick() {
 		var otherGame = null as GameUrls;
-		urls.TryGetValue((OtherGames)(counter++ %(int)OtherGames.Count), out otherGame);
+		var game = (OtherGames)(counter++ % (int)OtherGames.Count);
+		urls.TryGetValue(game, out otherGame);
 		if (otherGame != null) {
+			AnalyticsTracker.MoreGamesClicked(game.ToString());
 			GameCore.GoToAppPageInStore(otherGame.Url);
 		}
 	}

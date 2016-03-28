@@ -25,8 +25,13 @@ public class RateUsDialog {
 			PlatformDialog.Show(
 				"Please rate us!",
 				"Please rate game in the store!",
-				new PlatformDialog.Button("Yes", ShowAppPageInStore),
-				new PlatformDialog.Button("No", null)
+				new PlatformDialog.Button("Yes", () => {
+					AnalyticsTracker.RateUs(AnalyticsTracker.RateUsTypes.DialogYes);
+					ShowAppPageInStore();
+				}),
+				new PlatformDialog.Button("No", () => {
+					AnalyticsTracker.RateUs(AnalyticsTracker.RateUsTypes.DialogNo);
+				})
 			);
 
 			return true;

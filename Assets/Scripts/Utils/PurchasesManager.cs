@@ -155,6 +155,8 @@ public class PurchasesManager : AbstractSingletonBehaviour<PurchasesManager, Pur
 		}
 #endif
 
+		AnalyticsTracker.InApp(sku, AnalyticsTracker.InAppTypes.Clicked);
+
 		currentPurchase = new PurchaseInfo(sku);
 
 		StartCoroutine(BuyProductCoroutine(sku, onSuccess, onFail));
@@ -190,6 +192,10 @@ public class PurchasesManager : AbstractSingletonBehaviour<PurchasesManager, Pur
 			} catch (System.Exception e) {
 				Debug.LogError("Error while handle purchase: " + e);
 			}
+		}
+
+		if (currentPurchase.CurrentStatus == PurchaseStatus.Success) {
+			AnalyticsTracker.InApp(sku, AnalyticsTracker.InAppTypes.Bought);
 		}
 
 		currentPurchase = null;

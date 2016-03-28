@@ -210,6 +210,8 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 	}
 
 	private void HandleGameWin() {
+		AnalyticsTracker.MiniGameWin(GameType);
+
 		GameUnload();
 		OnGameWin();
 		GameController.Instance.StartNextGame(GameController.GamesNavigation.Next);
@@ -223,6 +225,8 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 	}
 
 	void GameController.IGame.OnStart() {
+		AnalyticsTracker.MiniGameStart(GameType);
+
 		UITutorialHand.DestroyCurrent();
 		startHintShowed = false;
 		GameLoad();

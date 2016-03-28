@@ -177,7 +177,7 @@ public class GameMatchShape : GameBase {
 	}
 
 	private void OnDroppedShapeClick(Shape shape) {
-		shape.ShowHint(UIDialogHintBaloon.Direction.RightTop, "match_shape");
+		//shape.ShowHint(UIDialogHintBaloon.Direction.RightTop, "match_shape");
 	}
 
 	private void OnEmptyShapeClick(Shape shape) {

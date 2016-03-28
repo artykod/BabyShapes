@@ -201,7 +201,7 @@ public class GameFallShapes : GameBase {
 	}
 
 	private void OnMainShapeClick(Shape shape) {
-		shape.ShowHint(UIDialogHintBaloon.Direction.LeftTop, "match_shape_color");
+		//shape.ShowHint(UIDialogHintBaloon.Direction.LeftTop, "match_shape_color");
 	}
 
 	private void OnSuccessShapeClick(FallShape shape, bool isSuccess) {
@@ -219,7 +219,7 @@ public class GameFallShapes : GameBase {
 			}
 		} else {
 			if (wrongBaloonCounter++ % 3 == 0) {
-				mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "where_is", SoundController.VOICE_WHERE_IS);
+				//mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "where_is", SoundController.VOICE_WHERE_IS);
 			}
 		}
 	}

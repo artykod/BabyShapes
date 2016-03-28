@@ -111,7 +111,7 @@ public class GameMatchColor : GameBase {
 	}
 
 	private void OnMainShapeClick(Shape shape) {
-		shape.ShowHint(UIDialogHintBaloon.Direction.RightBottom, "match_color");
+		//shape.ShowHint(UIDialogHintBaloon.Direction.RightBottom, "match_color");
 	}
 
 	private IEnumerator TurnOffGrid() {
@@ -151,7 +151,7 @@ public class GameMatchColor : GameBase {
 		} else {
 			shape.CurrentFaceAnimation = Shape.FaceAnimation.Mad;
 			SoundController.Sound(SoundController.SOUND_INCORRECT_2);
-			mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "where_is", SoundController.VOICE_WHERE_IS);
+			//mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "where_is", SoundController.VOICE_WHERE_IS);
 		}
 	}
 }

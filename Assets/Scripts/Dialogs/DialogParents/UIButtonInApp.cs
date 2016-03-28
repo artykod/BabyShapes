@@ -10,7 +10,7 @@ public class UIButtonInApp : UIButton {
 
 	private void Start() {
 		if (titleText != null) {
-			titleText.OnRefresh += (text) => text.SelfText.text += ": " + price;
+			//titleText.OnRefresh += (text) => text.SelfText.text += ": " + price;
 			titleText.Refresh();
 		}
 	}

@@ -64,6 +64,8 @@ public class GameMatchColor : GameBase {
 		InvokeStartHintIfNotShowed(() => OnMainShapeClick(mainShape));
 
 		TryShowTutorialAfterDelay(0.5f);
+
+		mainShape.SpeakWhereIsShape();
 	}
 
 	protected override void GameUpdate() {

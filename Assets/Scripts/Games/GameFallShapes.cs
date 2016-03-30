@@ -117,6 +117,8 @@ public class GameFallShapes : GameBase {
 		mainShape.OnClick += OnMainShapeClick;
 
 		InvokeStartHintIfNotShowed(() => OnMainShapeClick(mainShape));
+
+		mainShape.SpeakWhereIsShape();
 	}
 
 	protected override void GameUpdate() {

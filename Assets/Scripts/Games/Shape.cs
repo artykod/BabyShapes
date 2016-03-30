@@ -285,6 +285,10 @@ public class Shape : MonoBehaviour, ShapesPool.IPooledShape, IPointerClickHandle
 		}
 	}
 
+	public void SpeakWhereIsShape() {
+		SoundController.Voice(SoundController.VOICE_WHERE_IS, () => SpeakShapeType());
+	}
+
 	public void ShowHint(UIDialogHintBaloon.Direction direction, string text, string voice = null) {
 		UIDialogHintBaloon.ShowWithText(transform, direction, LanguageController.Localize(text), voice);
 	}

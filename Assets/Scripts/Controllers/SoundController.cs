@@ -4,6 +4,8 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
+using Action = System.Action;
+
 public class SoundController : AbstractSingletonBehaviour<SoundController, SoundController> {
 	private const string PREFS_SOUND_ENABLED = "sound_on";
 
@@ -82,9 +84,9 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 	public static void Music(string music) {
 		Instance.PlayMusic(PATH_MUSICS + music);
 	}
-	public static void Voice(string voice) {
+	public static void Voice(string voice, Action continueCallback = null) {
 		var lang = LanguageController.Instance.LanguageShort;
-		Instance.PlaySound(string.Format("{0}{1}/{2}_{3}", PATH_VOICES, lang, lang, voice));
+		Instance.PlaySound(string.Format("{0}{1}/{2}_{3}", PATH_VOICES, lang, lang, voice), continueCallback);
 	}
 
 	public static void PlayNextMusic() {
@@ -92,30 +94,43 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 		musicIndex = (++musicIndex) % musicSequence.Length;
 	}
 
-	private void PlaySound(string sound) {
+	private void PlaySound(string sound, Action continueCallback = null) {
 		if (!IsSoundEnabled) {
 			return;
 		}
 
-		StartCoroutine(PlaySoundRoutine(sound));
+		StartCoroutine(PlaySoundRoutine(sound, continueCallback));
 	}
 
-	private IEnumerator PlaySoundRoutine(string sound) {
+	private IEnumerator PlaySoundRoutine(string sound, Action continueCallback = null) {
 		if (activeSounds.Contains(sound)) {
 			yield break;
 		}
 
-		sourceSound.PlayOneShot(LoadAudio(sound));
+		var clip = LoadAudio(sound);
+		sourceSound.PlayOneShot(clip);
+
+		if (continueCallback != null) {
+			StartCoroutine(InvokeAfterDelay(clip.length, continueCallback));
+		}
 
 		activeSounds.Add(sound);
-
 		var delay = 0.1f;
 		while (delay > 0f) {
 			delay -= Time.deltaTime;
 			yield return null;
 		}
-
 		activeSounds.Remove(sound);
+	}
+
+	private IEnumerator InvokeAfterDelay(float delay, Action action) {
+		while (delay > 0f) {
+			delay -= Time.deltaTime;
+			yield return null;
+		}
+		if (action != null) {
+			action();
+		}
 	}
 
 	private void PlayMusic(string music) {

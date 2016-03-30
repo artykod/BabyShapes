@@ -138,9 +138,12 @@ public class GameMatchShape : GameBase {
 	}
 
 	private void DropNewShape() {
+		var isFirstShape = true;
+
 		if (droppedShape != null) {
 			ShapesPool.Instance.ReturnShape(droppedShape, false);
 			droppedShape = null;
+			isFirstShape = false;
 		}
 
 		var emptyShapes = new List<Shape>(shapes.Count);
@@ -156,7 +159,11 @@ public class GameMatchShape : GameBase {
 			droppedShape.CurrentFaceAnimation = Shape.FaceAnimation.Idle;
 			droppedShape.OnDrag += OnShapeDrag;
 			droppedShape.OnClick += OnDroppedShapeClick;
-			droppedShape.SpeakShapeType();
+			if (isFirstShape) {
+				droppedShape.SpeakWhereIsShape();
+			} else {
+				droppedShape.SpeakShapeType();
+			}
 		} else {
 			SoundController.Sound(SoundController.SOUND_WIN);
 

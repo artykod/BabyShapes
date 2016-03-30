@@ -191,6 +191,7 @@ public class GameMatchShape : GameBase {
 		if (!CheckMatchWithShape(shape) && droppedShape != null) {
 			droppedShape.CurrentFaceAnimation = Shape.FaceAnimation.Mad;
 			SoundController.Sound(SoundController.SOUND_INCORRECT);
+			InvokeAfterDelay(0.15f, () => droppedShape.SpeakWhereIsShape());
 		}
 	}
 

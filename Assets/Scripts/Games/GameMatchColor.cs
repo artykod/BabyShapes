@@ -159,6 +159,7 @@ public class GameMatchColor : GameBase {
 		} else {
 			shape.CurrentFaceAnimation = Shape.FaceAnimation.Mad;
 			SoundController.Sound(SoundController.SOUND_INCORRECT_2);
+			InvokeAfterDelay(0.15f, () => mainShape.SpeakWhereIsShape());
 			//mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "where_is", SoundController.VOICE_WHERE_IS);
 		}
 	}

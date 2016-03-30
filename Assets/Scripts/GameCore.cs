@@ -54,10 +54,6 @@ public class GameCore : MonoBehaviour {
 		dialog.Close();
 
 		GameController.Instance.StartNextGame(GameController.GamesNavigation.Next);
-
-		if (!PurchasesManager.Instance.IsSomeonePurchaseDone) {
-			AdsController.Instance.IsAdBannerVisible = true;
-		}
 	}
 
 #if UNITY_EDITOR

@@ -81,6 +81,12 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 		}
 	}
 
+	protected virtual bool CanShowAdBanner {
+		get {
+			return true;
+		}
+	}
+
 	private void Awake() {
 		var canvas = GetComponent<Canvas>();
 		canvas.renderMode = RenderMode.ScreenSpaceCamera;
@@ -231,6 +237,8 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 		startHintShowed = false;
 		GameLoad();
 		GameStart();
+
+		AdsController.Instance.IsAdBannerVisible = CanShowAdBanner;
 	}
 
 	void GameController.IGame.OnStop() {

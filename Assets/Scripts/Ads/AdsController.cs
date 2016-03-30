@@ -20,8 +20,8 @@ public class AdsController : AbstractSingletonBehaviour<AdsController, AdsContro
 	}
 
 	private void Awake() {
-		HeyzapAds.ShowDebugLogs();
-		HeyzapAds.ShowThirdPartyDebugLogs();
+		//HeyzapAds.ShowDebugLogs();
+		//HeyzapAds.ShowThirdPartyDebugLogs();
 		HeyzapAds.Start("ece2341e0547e4d11662e8aadfb64ec1", HeyzapAds.FLAG_NO_OPTIONS);
 	}
 }

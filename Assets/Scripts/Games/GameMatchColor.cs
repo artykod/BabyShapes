@@ -22,6 +22,12 @@ public class GameMatchColor : GameBase {
 	private Shape mainShape = null;
 	private LinkedList<Shape> shapes = new LinkedList<Shape>();
 
+	protected override bool CanShowAdBanner {
+		get {
+			return false;
+		}
+	}
+
 	protected override void GameLoad() {
 		base.GameLoad();
 	}

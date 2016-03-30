@@ -8,7 +8,7 @@ public class LocalNotificationsController : MonoBehaviour {
 	private const string PREFS_NOTIFICATION_TEXT_INDEX = "localNotifTextIndex";
 	private const int NOTIFICATION_TARGET_SCHEDULE_HOUR = 18;
 
-	private string messageTitle = "Lamphead";
+	private string messageTitle = "Baby Shapes";
 	private List<string> messageTexts = new List<string> {
 		"Learn your baby shapes!",
 		"Let's play baby shapes!",
@@ -16,7 +16,7 @@ public class LocalNotificationsController : MonoBehaviour {
 		"Check if you know all baby shapes!",
 	};
 
-	private void Awake() {
+	private void Start() {
 		NotificationManager.Instance.ClearAllLocalNotifications();
 	}
 

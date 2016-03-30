@@ -3,19 +3,19 @@
 public class NotificationManagerAndroid : NotificationManager {
 	public override bool IsAvailable {
 		get {
-			return true;
+			return AndroidNotificationManager.instance != null;
 		}
 	}
 
 	public override void ClearAllLocalNotifications() {
 		if (IsAvailable) {
-			//AndroidNotificationManager.instance.CancelAllLocalNotifications();
+			AndroidNotificationManager.instance.CancelAllLocalNotifications();
 		}
 	}
 
 	public override void ScheduleLocalNotification(string title, string message, int delayInSeconds) {
 		if (IsAvailable) {
-			//AndroidNotificationManager.instance.ScheduleLocalNotification(title, message, delayInSeconds);
+			AndroidNotificationManager.instance.ScheduleLocalNotification(title, message, delayInSeconds);
 		}
 	}
 }

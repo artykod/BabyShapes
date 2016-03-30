@@ -22,7 +22,8 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 	public const string SOUND_WIN_BALOON_1 = "ballon1";
 	public const string SOUND_WIN_BALOON_2 = "ballon2";
 
-	public const string MUSIC_STANDARD = "music";
+	public const string MUSIC_1 = "music_1";
+	public const string MUSIC_2 = "music_2";
 
 	public const string VOICE_HELLO = "hi_baby";
 	public const string VOICE_CIRCLE = "circle";
@@ -45,6 +46,13 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 	private static IEnumerator buttonsClickTracker = null;
 	private static Button lastSelectedButton = null;
 	private static HashSet<string> activeSounds = new HashSet<string>();
+	private static string[] musicSequence = {
+		MUSIC_1,
+		"",
+		MUSIC_2,
+		"",
+	};
+	private static int musicIndex = 0;
 
 	public static string RandomVoiceExcellent {
 		get {
@@ -77,6 +85,11 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 	public static void Voice(string voice) {
 		var lang = LanguageController.Instance.LanguageShort;
 		Instance.PlaySound(string.Format("{0}{1}/{2}_{3}", PATH_VOICES, lang, lang, voice));
+	}
+
+	public static void PlayNextMusic() {
+		Music(musicSequence[musicIndex]);
+		musicIndex = (++musicIndex) % musicSequence.Length;
 	}
 
 	private void PlaySound(string sound) {

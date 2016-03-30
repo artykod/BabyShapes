@@ -41,7 +41,6 @@ public class GameCore : MonoBehaviour {
 
 		Application.targetFrameRate = 60;
 		LanguageController.Instance.Initialize();
-		SoundController.Music(SoundController.MUSIC_STANDARD);
 		SoundController.StartButtonsClickTracker();
 
 		Debug.Log("Is someone purchase done: " + PurchasesManager.Instance.IsSomeonePurchaseDone);

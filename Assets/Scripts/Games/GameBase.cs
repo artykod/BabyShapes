@@ -239,6 +239,8 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 		GameStart();
 
 		AdsController.Instance.IsAdBannerVisible = CanShowAdBanner;
+
+		SoundController.PlayNextMusic();
 	}
 
 	void GameController.IGame.OnStop() {

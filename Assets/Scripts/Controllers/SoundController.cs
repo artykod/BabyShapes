@@ -56,7 +56,7 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 
 	public static string RandomVoiceExcellent {
 		get {
-			return Random.value > 0.5 ? VOICE_EXCELLENT : VOICE_KEEP_IT_UP;
+			return Random.value > 0.5 ? VOICE_EXCELLENT : Random.value > 0.5 ? VOICE_WELL_DONE : VOICE_KEEP_IT_UP;
 		}
 	}
 

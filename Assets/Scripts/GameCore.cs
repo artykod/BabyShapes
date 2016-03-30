@@ -55,7 +55,9 @@ public class GameCore : MonoBehaviour {
 
 		GameController.Instance.StartNextGame(GameController.GamesNavigation.Next);
 
-		yield break;
+		if (!PurchasesManager.Instance.IsSomeonePurchaseDone) {
+			AdsController.Instance.IsAdBannerVisible = true;
+		}
 	}
 
 #if UNITY_EDITOR

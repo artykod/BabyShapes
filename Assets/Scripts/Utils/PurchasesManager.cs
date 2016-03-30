@@ -195,6 +195,7 @@ public class PurchasesManager : AbstractSingletonBehaviour<PurchasesManager, Pur
 		}
 
 		if (currentPurchase.CurrentStatus == PurchaseStatus.Success) {
+			AdsController.Instance.IsAdBannerVisible = false;
 			AnalyticsTracker.InApp(sku, AnalyticsTracker.InAppTypes.Bought);
 		}
 

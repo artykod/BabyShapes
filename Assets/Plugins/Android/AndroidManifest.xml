@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.unity3d.player" android:installLocation="preferExternal" android:theme="@android:style/Theme.NoTitleBar" android:versionCode="1" android:versionName="1.0">
+  <supports-screens android:smallScreens="false" android:normalScreens="true" android:largeScreens="true" android:xlargeScreens="true" android:anyDensity="true" />
+  <uses-sdk android:minSdkVersion="14" />
+  <application android:icon="@drawable/app_icon" android:label="@string/app_name" android:debuggable="true" android:hardwareAccelerated="true">
+    <activity android:name="com.unity3d.player.UnityPlayerNativeActivity" android:label="@string/app_name">
+      <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+      <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity android:name="org.onepf.openiab.UnityProxyActivity" android:launchMode="singleTask" android:label="@string/app_name" android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen" />
+    <receiver android:name="com.amazon.device.iap.ResponseReceiver">
+      <intent-filter>
+          <action android:name="com.amazon.inapp.purchasing.NOTIFY" android:permission="com.amazon.inapp.purchasing.Permission.NOTIFY" />
+      </intent-filter>
+    </receiver>
+    <!-- Local Notifications -->
+    <receiver android:name="com.androidnative.features.notifications.LocalNotificationReceiver"> </receiver>
+    <!-- Block End -->
+    <activity android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+    <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+  </application>
+  <uses-permission android:name="android.permission.INTERNET" />
+  <!--Google Play-->
+  <uses-permission android:name="com.android.vending.BILLING" />
+  <!--Open Store-->
+  <uses-permission android:name="org.onepf.openiab.permission.BILLING" />
+</manifest>

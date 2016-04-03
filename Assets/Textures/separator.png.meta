@@ -63,6 +63,11 @@ TextureImporter:
     textureFormat: 10
     compressionQuality: 50
     allowsAlphaSplitting: 1
+  - buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    textureFormat: 10
+    compressionQuality: 50
+    allowsAlphaSplitting: 1
   spriteSheet:
     sprites: []
     outline: []

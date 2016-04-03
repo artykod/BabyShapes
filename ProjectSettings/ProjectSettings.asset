@@ -356,18 +356,67 @@ PlayerSettings:
   metroCertificateIssuer: Oriplay
   metroCertificateNotAfter: 003cfeab9a9bd201
   metroApplicationDescription: BabyShapes
-  wsaImages: {}
+  wsaImages:
+    65636: Assets/AppNativeAssets/tile/tile_50_50.png
+    65661: Assets/AppNativeAssets/tile/tile_63_63.png
+    65676: Assets/AppNativeAssets/tile/tile_70_70.png
+    65686: Assets/AppNativeAssets/tile/tile_75_75.png
+    65716: Assets/AppNativeAssets/tile/tile_90_90.png
+    65736: Assets/AppNativeAssets/tile/tile_100_100.png
+    65776: Assets/AppNativeAssets/tile/tile_120_120.png
+    65936: Assets/AppNativeAssets/tile/tile_200_200.png
+    131172: Assets/AppNativeAssets/splash_wide/splash_620_300.png
+    131197: Assets/AppNativeAssets/splash_wide/splash_775_375.png
+    131212: Assets/AppNativeAssets/splash_wide/splash_868_420.png
+    131222: Assets/AppNativeAssets/splash_wide/splash_930_450.png
+    131252: Assets/AppNativeAssets/splash_wide/splash_1116_540.png
+    131272: Assets/AppNativeAssets/splash_wide/splash_1240_600.png
+    131472: Assets/AppNativeAssets/splash_wide/splash_2480_1200.png
+    720976: Assets/AppNativeAssets/tile/tile_120_120.png
+    720996: Assets/AppNativeAssets/tile/tile_150_150.png
+    721036: Assets/AppNativeAssets/tile/tile_210_210.png
+    721076: Assets/AppNativeAssets/tile/tile_270_270.png
+    786512: Assets/AppNativeAssets/tile_wide/tile_248_120.png
+    786532: Assets/AppNativeAssets/tile_wide/tile_310_150.png
+    786572: Assets/AppNativeAssets/tile_wide/tile_434_210.png
+    786612: Assets/AppNativeAssets/tile_wide/tile_558_270.png
+    852048: Assets/AppNativeAssets/tile/tile_24_24.png
+    852068: Assets/AppNativeAssets/tile/tile_30_30.png
+    852108: Assets/AppNativeAssets/tile/tile_42_42.png
+    852148: Assets/AppNativeAssets/tile/tile_54_54.png
+    917584: Assets/AppNativeAssets/tile/tile_56_56.png
+    917604: Assets/AppNativeAssets/tile/tile_70_70.png
+    917644: Assets/AppNativeAssets/tile/tile_98_98.png
+    917684: Assets/AppNativeAssets/tile/tile_126_126.png
+    983120: Assets/AppNativeAssets/tile/tile_248_248.png
+    983140: Assets/AppNativeAssets/tile/tile_310_310.png
+    983180: Assets/AppNativeAssets/tile/tile_434_434.png
+    983220: Assets/AppNativeAssets/tile/tile_558_558.png
+    1376356: Assets/AppNativeAssets/tile/tile_44_44.png
+    1376396: Assets/AppNativeAssets/tile/tile_62_62.png
+    1376496: Assets/AppNativeAssets/tile/tile_106_106.png
+    1441892: Assets/AppNativeAssets/tile/tile_71_71.png
+    1441932: Assets/AppNativeAssets/tile/tile_99_99.png
+    1442032: Assets/AppNativeAssets/tile/tile_170_170.png
+    1507428: Assets/AppNativeAssets/tile/tile_150_150.png
+    1507468: Assets/AppNativeAssets/tile/tile_210_210.png
+    1507568: Assets/AppNativeAssets/tile/tile_360_360.png
+    1572964: Assets/AppNativeAssets/tile_wide/tile_310_150.png
+    1573004: Assets/AppNativeAssets/tile_wide/tile_434_210.png
+    1573104: Assets/AppNativeAssets/tile_wide/tile_744_360.png
+    1638500: Assets/AppNativeAssets/splash_fit/splash_480_800.png
+    1638540: Assets/AppNativeAssets/splash_fit/splash_672_1120.png
+    1638640: Assets/AppNativeAssets/splash_fit/splash_1152_1920.png
   metroTileShortName: Baby Shapes
   metroCommandLineArgsFile: 
   metroTileShowName: 0
-  metroMediumTileShowName: 0
-  metroLargeTileShowName: 0
-  metroWideTileShowName: 0
+  metroMediumTileShowName: 1
+  metroLargeTileShowName: 1
+  metroWideTileShowName: 1
   metroDefaultTileSize: 1
   metroTileForegroundText: 1
-  metroTileBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 0}
-  metroSplashScreenBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628,
-    a: 1}
+  metroTileBackgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  metroSplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   metroSplashScreenUseBackgroundColor: 1
   platformCapabilities:
     WindowsStoreApps:

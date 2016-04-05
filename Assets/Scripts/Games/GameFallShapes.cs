@@ -20,8 +20,8 @@ public class GameFallShapes : GameBase {
 			this.game = game;
 
 			var gameTransform = game.fieldRect;
-			isSameShape = true;//Random.value > 0.5f;
-			shape = isSameShape ? game.GenerateSameShape(game.mainShape, gameTransform) : game.GenerateRandomShape(gameTransform);
+			isSameShape = Random.value > 0.5f;
+			shape = isSameShape ? game.GenerateSameShape(game.mainShape, gameTransform) : game.GenerateRandomShapeExcludeShape(game.mainShape, gameTransform);
 			velocity = new Vector3(Random.Range(-3f, 3f), -2.5f);
 
 			shape.transform.position = new Vector3(Random.Range(game.worldFieldRect.xMin, game.worldFieldRect.xMax), game.worldFieldRect.yMax + 2f);
@@ -92,6 +92,7 @@ public class GameFallShapes : GameBase {
 	private int hackComputeWorldRectSizeCounter = 4;
 	private int wrongBaloonCounter = 0;
 	private Shape lastSameShape = null;
+	private bool isRoundDone = false;
 
 	protected override int TutorialShowMaxCount {
 		get {
@@ -108,6 +109,8 @@ public class GameFallShapes : GameBase {
 
 	protected override void GameStart() {
 		base.GameStart();
+
+		isRoundDone = false;
 
 		RefreshFieldWorldRect();
 
@@ -130,7 +133,7 @@ public class GameFallShapes : GameBase {
 		}
 
 		newShapeDelay -= Time.deltaTime;
-		if (newShapeDelay < 0f) {
+		if (newShapeDelay < 0f && !isRoundDone) {
 			newShapeDelay = DROP_SHAPE_PERIOD;
 
 			if (mainShape != null) {
@@ -207,6 +210,10 @@ public class GameFallShapes : GameBase {
 	}
 
 	private void OnSuccessShapeClick(FallShape shape, bool isSuccess) {
+		if (isRoundDone) {
+			return;
+		}
+
 		if (isSuccess) {
 			successClicks++;
 
@@ -216,6 +223,8 @@ public class GameFallShapes : GameBase {
 			newShapeDelay /= 2f;
 
 			if (successClicks >= 3) {
+				isRoundDone = true;
+
 				mainShape.ShowHint(UIDialogHintBaloon.Direction.LeftBottom, "excellent", SoundController.RandomVoiceExcellent);
 				InvokeAfterDelay(0.25f, GameEnd);
 			}

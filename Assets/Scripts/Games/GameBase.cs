@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public abstract class GameBase : MonoBehaviour, GameController.IGame {
 	private const string PREFS_GAME_LOADS_COUNT = "gmldscnt";
@@ -134,6 +135,15 @@ public abstract class GameBase : MonoBehaviour, GameController.IGame {
 		return ShapesPool.Instance.GetShape(
 			GenerateRandomEnum<Shape.Type>(),
 			GenerateRandomEnum<Shape.Color>(),
+			Shape.VisualMode.ShapeWithShadow,
+			parent
+		);
+	}
+
+	protected Shape GenerateRandomShapeExcludeShape(Shape excludedShape, RectTransform parent) {
+		return ShapesPool.Instance.GetShape(
+			GenerateRandomEnumExclude(excludedShape.CurrentShape),
+			GenerateRandomEnumExclude(excludedShape.CurrentColor),
 			Shape.VisualMode.ShapeWithShadow,
 			parent
 		);

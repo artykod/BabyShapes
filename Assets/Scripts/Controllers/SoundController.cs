@@ -8,6 +8,7 @@ using Action = System.Action;
 
 public class SoundController : AbstractSingletonBehaviour<SoundController, SoundController> {
 	private const string PREFS_SOUND_ENABLED = "sound_on";
+	private const string PREFS_MUSIC_ENABLED = "music_on";
 
 	private const string PATH_SOUNDS = "sounds/";
 	private const string PATH_MUSICS = "music/";
@@ -68,6 +69,15 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 		}
 		set {
 			PlayerPrefs.SetInt(PREFS_SOUND_ENABLED, value ? 1 : 0);
+			PlayerPrefs.Save();
+		}
+	}
+	public bool IsMusicEnabled {
+		get {
+			return PlayerPrefs.GetInt(PREFS_MUSIC_ENABLED, 1) > 0;
+		}
+		set {
+			PlayerPrefs.SetInt(PREFS_MUSIC_ENABLED, value ? 1 : 0);
 			PlayerPrefs.Save();
 
 			if (!value) {
@@ -137,7 +147,7 @@ public class SoundController : AbstractSingletonBehaviour<SoundController, Sound
 		sourceMusic.clip = LoadAudio(music);
 		sourceMusic.loop = true;
 		sourceMusic.volume = 0.25f;
-		if (IsSoundEnabled) {
+		if (IsMusicEnabled) {
 			sourceMusic.Play();
 		}
 	}

@@ -56,9 +56,14 @@ TextureImporter:
   - buildTarget: iPhone
     maxTextureSize: 2048
     textureFormat: 32
-    compressionQuality: 50
+    compressionQuality: 100
     allowsAlphaSplitting: 1
   - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: 10
+    compressionQuality: 50
+    allowsAlphaSplitting: 1
+  - buildTarget: Windows Store Apps
     maxTextureSize: 2048
     textureFormat: 10
     compressionQuality: 50

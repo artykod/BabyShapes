@@ -121,22 +121,12 @@ extern "C" {
 }
 
 - (void)setButtonLabeleWithPositive:(NSString*)positive{
-    [labelPositive release];
-
     labelPositive = [NSString stringWithString:positive];
-    
-    [labelPositive retain];
 }
 
 - (void)setButtonLabeleWithPositive:(NSString*)positive negative:(NSString*)negative {
-    [labelPositive release];
-    [labelNegative release];
-
     labelPositive = [NSString stringWithString:positive];
     labelNegative = [NSString stringWithString:negative];
-    
-    [labelPositive retain];
-    [labelNegative retain];
 }
 
 - (void)dismiss {
@@ -147,7 +137,6 @@ extern "C" {
     //NSLog(@"dismiss");
     
     [alertViewInstance dismissWithClickedButtonIndex:SubmitOrNegative animated:true];
-    [alertViewInstance release];
     alertViewInstance = nil;
 }
 
@@ -177,8 +166,7 @@ extern "C" {
     default:
         break;
     }
-    
-    [alertViewInstance release];
+
     alertViewInstance = nil;
 }
 

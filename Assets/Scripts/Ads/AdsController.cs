@@ -23,6 +23,7 @@ public class AdsController : AbstractSingletonBehaviour<AdsController, AdsContro
 		set {
 			isAdBannerVisible = value && GameStartsCount > 1 && !PurchasesManager.Instance.IsSomeonePurchaseDone;
 
+#if UNITY_ANDROID
 			if (isAdBannerVisible) {
 				HZBannerAd.ShowWithOptions(new HZBannerShowOptions {
 					Position = HZBannerShowOptions.POSITION_BOTTOM,
@@ -30,14 +31,19 @@ public class AdsController : AbstractSingletonBehaviour<AdsController, AdsContro
 			} else {
 				HZBannerAd.Hide();
 			}
+#endif
 		}
 	}
 
 	private void Awake() {
 		GameStartsCount++;
 
+#if UNITY_ANDROID
 		//HeyzapAds.ShowDebugLogs();
 		//HeyzapAds.ShowThirdPartyDebugLogs();
 		HeyzapAds.Start("ece2341e0547e4d11662e8aadfb64ec1", HeyzapAds.FLAG_NO_OPTIONS);
+
+		//HeyzapAds.ShowMediationTestSuite ();
+#endif
 	}
 }

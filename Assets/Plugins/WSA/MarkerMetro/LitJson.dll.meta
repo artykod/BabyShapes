@@ -59,7 +59,7 @@ PluginImporter:
         CPU: AnyCPU
         DontProcess: True
         PlaceholderPath: 
-        SDK: AnySDK
+        SDK: SDK81
         ScriptingBackend: AnyScriptingBackend
     iOS:
       enabled: 0

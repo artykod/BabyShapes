@@ -414,9 +414,9 @@ PlayerSettings:
   metroLargeTileShowName: 1
   metroWideTileShowName: 1
   metroDefaultTileSize: 1
-  metroTileForegroundText: 1
-  metroTileBackgroundColor: {r: 0, g: 0, b: 0, a: 0}
-  metroSplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  metroTileForegroundText: 2
+  metroTileBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  metroSplashScreenBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
   metroSplashScreenUseBackgroundColor: 1
   platformCapabilities:
     WindowsStoreApps:

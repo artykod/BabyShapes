@@ -7,8 +7,8 @@ public class AppIconAssetsResizer {
 	private static void ResizeForWSA() {
 		Texture2D iconQuad = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/AppNativeAssets/icon_quad.png");
 		Texture2D iconWide = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/AppNativeAssets/icon_wide.png");
-		Texture2D splashWide = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/AppNativeAssets/splash_wide.jpg");
-		Texture2D splashFit = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/AppNativeAssets/splash_fit.jpg");
+		Texture2D splashWide = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/AppNativeAssets/splash_wide.png");
+		Texture2D splashFit = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/AppNativeAssets/splash_fit.png");
 
 		List<Vector2> sizesQuad = new List<Vector2>() {
 			new Vector2(50, 50),

@@ -10,12 +10,11 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 0
   companyName: Oriplay
-  productName: Baby Shapes
+  productName: 'Happy Kids: Baby Shapes 2-5'
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_ShowUnitySplashScreen: 0
-  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 139fb28839b054e4190f6d221129a7ee,
-    type: 3}
+  m_VirtualRealitySplashScreen: {fileID: 0}
   defaultScreenWidth: 1024
   defaultScreenHeight: 768
   defaultScreenWidthWeb: 960
@@ -91,20 +90,20 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.oriplay.babyshapes
-  bundleVersion: 1.0
+  bundleVersion: 1.1
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   xboxOneDisableKinectGpuReservation: 0
   virtualRealitySupported: 0
   productGUID: f98ba835771d4b74aa9384c5aab08f2b
-  AndroidBundleVersionCode: 2
+  AndroidBundleVersionCode: 3
   AndroidMinSdkVersion: 14
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   apiCompatibilityLevel: 2
   stripEngineCode: 1
-  iPhoneStrippingLevel: 3
+  iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
   iPhoneBuildNumber: 1
   ForceInternetPermission: 0
@@ -139,29 +138,29 @@ PlayerSettings:
   tvOSLargeIconLayers: []
   tvOSTopShelfImageLayers: []
   iOSLaunchScreenType: 1
-  iOSLaunchScreenPortrait: {fileID: 2800000, guid: 139fb28839b054e4190f6d221129a7ee,
+  iOSLaunchScreenPortrait: {fileID: 2800000, guid: d479e3038e470464ebd6abf98b91a649,
     type: 3}
-  iOSLaunchScreenLandscape: {fileID: 2800000, guid: 139fb28839b054e4190f6d221129a7ee,
+  iOSLaunchScreenLandscape: {fileID: 2800000, guid: d479e3038e470464ebd6abf98b91a649,
     type: 3}
   iOSLaunchScreenBackgroundColor:
     serializedVersion: 2
-    rgba: 0
+    rgba: 4294967295
   iOSLaunchScreenFillPct: 100
   iOSLaunchScreenSize: 100
   iOSLaunchScreenCustomXibPath: 
   iOSLaunchScreeniPadType: 1
-  iOSLaunchScreeniPadImage: {fileID: 2800000, guid: 139fb28839b054e4190f6d221129a7ee,
+  iOSLaunchScreeniPadImage: {fileID: 2800000, guid: d479e3038e470464ebd6abf98b91a649,
     type: 3}
   iOSLaunchScreeniPadBackgroundColor:
     serializedVersion: 2
-    rgba: 0
+    rgba: 4294967295
   iOSLaunchScreeniPadFillPct: 100
   iOSLaunchScreeniPadSize: 100
   iOSLaunchScreeniPadCustomXibPath: 
   iOSDeviceRequirements: []
   AndroidTargetDevice: 3
   AndroidSplashScreenScale: 2
-  androidSplashScreen: {fileID: 2800000, guid: 139fb28839b054e4190f6d221129a7ee, type: 3}
+  androidSplashScreen: {fileID: 2800000, guid: d479e3038e470464ebd6abf98b91a649, type: 3}
   AndroidKeystoreName: G:/projects/oriplay/BabyShapes/user.keystore
   AndroidKeyaliasName: user
   AndroidTVCompatibility: 1
@@ -170,7 +169,7 @@ PlayerSettings:
   m_AndroidBanners:
   - width: 320
     height: 180
-    banner: {fileID: 2800000, guid: 53e6907a5b3a21048951e5ebf5302b3f, type: 3}
+    banner: {fileID: 2800000, guid: 78820bf08982d7c43bf1962ce7f90ba6, type: 3}
   androidGamepadSupportLevel: 0
   resolutionDialogBanner: {fileID: 2800000, guid: 139fb28839b054e4190f6d221129a7ee,
     type: 3}

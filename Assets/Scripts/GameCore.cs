@@ -17,9 +17,9 @@ public class GameCore : MonoBehaviour {
 #if UNITY_ANDROID
 			return IsPaidAppVersion ? "com.oriplay.babyshapes.paid" : "com.oriplay.babyshapes";
 #elif UNITY_IOS
-			return IsPaidAppVersion ? "1046852687" : "1074030366";
+			return IsPaidAppVersion ? "1099447638" : "1099447638";
 #elif UNITY_WSA
-			return IsPaidAppVersion ? "9nblggh5kpw4" : "9nblggh5kpw4";
+			return IsPaidAppVersion ? "9nblggh4nhm2" : "9nblggh4nhm2";
 #else
 			return Application.bundleIdentifier;
 #endif
@@ -53,6 +53,20 @@ public class GameCore : MonoBehaviour {
 		dialog.Close();
 
 		GameController.Instance.StartNextGame(GameController.GamesNavigation.Next);
+	}
+
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			if (UIDialogText.CurrentDialog == null) {
+				var dialog = UIDialogText.ShowSingle().Build("Exit", "Exit from game?", "Yes", "No");
+				dialog.OnYesClick += () => {
+					Debug.Log("Quit from game clicked");
+					Application.Quit();
+				};
+			} else {
+				UIDialogText.CurrentDialog.Close();
+			}
+		}
 	}
 
 #if UNITY_EDITOR

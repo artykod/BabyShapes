@@ -46,11 +46,13 @@ public class PlatformDialog : MonoBehaviour
 		this.dialog = new AndroidDialog();
 #elif UNITY_IPHONE
 		this.dialog = new iOSDialog();
+#elif UNITY_WSA
+		this.dialog = new WSADialog();
 #elif UNITY_WEBPLAYER
 		this.dialog = new WebPlayerDialog();
 #endif
 	}
-	
+
 	void OnDestroy ()
 	{
 	}
@@ -150,14 +152,14 @@ public class PlatformDialog : MonoBehaviour
 	}
 
 
-	private void OnPositive( string data ) {
+	public void OnPositive( string data ) {
 		if( positiveDelegate != null ) {
 			this.positiveDelegate();
 		}
 		this.positiveDelegate = null;
 	}
 
-	private void OnNegative( string data ) {
+	public void OnNegative( string data ) {
 		if( this.negativeDelegate != null ) {
 			this.negativeDelegate();
 		}

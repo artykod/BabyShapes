@@ -98,7 +98,7 @@ public class AppIconAssetsResizer {
 		foreach (var i in paths) {
 			var assetsPath = i.Replace(Application.dataPath, "");
 			var importer = AssetImporter.GetAtPath("Assets" + assetsPath) as TextureImporter;
-			importer.textureType = TextureImporterType.Advanced;
+			importer.textureType = TextureImporterType.Default;
 			importer.textureFormat = TextureImporterFormat.ARGB32;
 			importer.npotScale = TextureImporterNPOTScale.None;
 			importer.mipmapEnabled = false;

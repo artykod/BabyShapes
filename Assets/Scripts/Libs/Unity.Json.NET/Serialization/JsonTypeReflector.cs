@@ -317,7 +317,7 @@ namespace Newtonsoft.Json.Serialization
       {
         if (_dynamicCodeGeneration == null)
         {
-#if !(UNITY_ANDROID || UNITY_WEBPLAYER || (UNITY_IOS || UNITY_IPHONE) || (UNITY_WP8 || UNITY_WP_8_1) || (UNITY_WINRT && !UNITY_EDITOR))
+/*#if !(UNITY_ANDROID || UNITY_WEBPLAYER || (UNITY_IOS || UNITY_IPHONE) || (UNITY_WP8 || UNITY_WP_8_1) || (UNITY_WINRT && !UNITY_EDITOR))
             try
           {
             new ReflectionPermission(ReflectionPermissionFlag.MemberAccess).Demand();
@@ -333,9 +333,9 @@ namespace Newtonsoft.Json.Serialization
           {
             _dynamicCodeGeneration = false;
           }
-#else
+#else*/
 			_dynamicCodeGeneration = false;
-#endif
+//#endif
         }
 
         return _dynamicCodeGeneration.Value;

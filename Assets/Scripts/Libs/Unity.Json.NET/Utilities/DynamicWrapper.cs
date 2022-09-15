@@ -45,8 +45,8 @@ namespace Newtonsoft.Json.Utilities
 						AssemblyName assemblyName = new AssemblyName("Newtonsoft.Json.Dynamic");
 						assemblyName.KeyPair = new StrongNameKeyPair(GetStrongKey());
 
-						AssemblyBuilder assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
-						_moduleBuilder = assembly.DefineDynamicModule("Newtonsoft.Json.DynamicModule", false);
+						//AssemblyBuilder assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
+						//_moduleBuilder = assembly.DefineDynamicModule("Newtonsoft.Json.DynamicModule", false);
 					}
 				}
 			}

@@ -21,7 +21,8 @@ public class GameCore : MonoBehaviour {
 #elif UNITY_WSA
 			return IsPaidAppVersion ? "9nblggh4nhm2" : "9nblggh4nhm2";
 #else
-			return Application.bundleIdentifier;
+			//return Application.appId;
+			return "";
 #endif
 		}
 	}
